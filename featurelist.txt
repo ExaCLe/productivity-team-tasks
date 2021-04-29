@@ -11,4 +11,4 @@ The following features are planned:
 What is a task:
 - namen 
 - (due date) 
-- classes of tasks (dishes are different from university)
+- classes of tasks (dishes are different from university) 
