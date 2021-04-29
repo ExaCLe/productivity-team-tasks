@@ -1,0 +1,14 @@
+The following features are planned: 
+
+- adding tasks 
+- removing tasks 
+- people can follow each other 
+    - if you follow, you can see the tasks the person wants to complete, has completed, etc.  
+
+- challenge people (with or without acceptance)
+
+
+What is a task:
+- namen 
+- (due date) 
+- classes of tasks (dishes are different from university)
