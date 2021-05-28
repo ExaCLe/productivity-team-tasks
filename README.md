@@ -1,7 +1,7 @@
 # productivity-team-tasks
 
 # Design Wireframes
-https://www.figma.com/proto/Qzf2XmnQIsxNXHP5tFr11f/Productivity-Team-Tasks?page-id=0%3A1&node-id=4%3A270&viewport=-3495%2C32%2C0.6044042110443115&scaling=min-zoom
+https://www.figma.com/proto/Qzf2XmnQIsxNXHP5tFr11f/Productivity-Team-Tasks?page-id=0%3A1&node-id=3%3A12&viewport=-3495%2C32%2C0.6044042110443115&scaling=min-zoom
 
 # Adress of the side right now: 
 https://productivity-team-tasks.herokuapp.com/
