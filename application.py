@@ -139,3 +139,8 @@ def logout():
 
     # Redirect user to login form
     return redirect("/login")
+
+
+@app.route("/tasks", methods=["GET", "POST"])
+def tasks():
+    return render_template("tasks.html")
