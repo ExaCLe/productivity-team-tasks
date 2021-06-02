@@ -1,45 +1,55 @@
 # productivity-team-tasks
 
 # Design Wireframes
+
 https://www.figma.com/proto/Qzf2XmnQIsxNXHP5tFr11f/Productivity-Team-Tasks?page-id=0%3A1&node-id=3%3A12&viewport=-3495%2C32%2C0.6044042110443115&scaling=min-zoom
 
-# Adress of the side right now: 
+# Adress of the side right now:
+
 https://productivity-team-tasks.herokuapp.com/
 
-// to run the server locally: 
+// to run the server locally:
 
-Im Terminal: 
+Im Terminal:
 
-export FLASK_APP=application.py
-pip install -r requirements.txt
+export FLASK_APP=application.py <br>
+pip install -r requirements.txt <br>
 flask run
 
+# git-Befehle:
 
-# git-Befehle: 
+## Hinzufügen einer Datei:
 
-## Hinzufügen einer Datei: 
 git add "index.html"
 
-## Hinzufügen aller neuen Dateien: 
+## Hinzufügen aller neuen Dateien:
+
 git add -A
 
-## Vorbereiten von den Dateien mit einem Kommentar: 
+## Vorbereiten von den Dateien mit einem Kommentar:
+
 git commit -m "Message"
 
-## Vorbereiten von allen Dateien mit einem Kommentar(add kann übersprungen werden) 
+## Vorbereiten von allen Dateien mit einem Kommentar(add kann übersprungen werden)
+
 git commit -am "message"
 
-## Anzeigen der Unterschiede zur Cloud: 
-git status 
+## Anzeigen der Unterschiede zur Cloud:
 
-## Hochladen der Veränderungen 
-git push 
+git status
 
-## Herunterladen der Veränderungen 
-git pull 
+## Hochladen der Veränderungen
 
-## Erstellen einer neuen Branch 
+git push
+
+## Herunterladen der Veränderungen
+
+git pull
+
+## Erstellen einer neuen Branch
+
 git checkout -b branchName
 
-## Wechseln der Branch: 
-git checkout branchName 
+## Wechseln der Branch:
+
+git checkout branchName
