@@ -149,119 +149,139 @@ def logout():
 
 # Routes/Tasks
 @app.route("/tasks", methods=["GET", "POST"])
+@login_required
 def tasks():
     return render_template("tasks/tasks.html")
 
 
 # Routes/Tasks/Add
 @app.route("/tasks/add", methods=["GET", "POST"])
+@login_required
 def addTask():
     return render_template("tasks/add.html")
 
 
 # Routes/Tasks/Edit
 @app.route("/tasks/edit", methods=["GET", "POST"])
+@login_required
 def editTask():
     return render_template("tasks/edit.html")
 
 
 # Routes/Scoreboard/Monthly
 @app.route("/scoreboard/monthly", methods=["GET", "POST"])
+@login_required
 def scoreboardMonthly():
     return render_template("scoreboard/monthly.html")
 
 
 # Routes/Scoreboard/Weekly
 @app.route("/scoreboard/weekly", methods=["GET", "POST"])
+@login_required
 def scoreboardWeekly():
     return render_template("scoreboard/weekly.html")
 
 
 # Routes/Scoreboard/Daily
 @app.route("/scoreboard/daily", methods=["GET", "POST"])
+@login_required
 def scoreboardDaily():
     return render_template("scoreboard/daily.html")
 
 
 # Routes/Profile
 @app.route("/profile", methods=["GET", "POST"])
+@login_required
 def profile():
     return render_template("profiles/profile.html")
 
 
 # Routes/Profile/Edit
 @app.route("/profile/edit", methods=["GET", "POST"])
+@login_required
 def profileEdit():
     return render_template("profiles/edit.html")
 
 
 # Routes/Friends
 @app.route("/friends", methods=["GET", "POST"])
+@login_required
 def friends():
     return render_template("friends/friends.html")
 
 
 # Routes/Friends/Add
 @app.route("/friends/add", methods=["GET", "POST"])
+@login_required
 def friendsAdd():
     return render_template("friends/add.html")
 
 
 # Routes/Friends/Search
 @app.route("/friends/search", methods=["GET", "POST"])
+@login_required
 def friendsSearch():
     return render_template("friends/search.html")
 
 
 # Routes/Friends/Search/Results
 @app.route("/friends/search/results", methods=["GET", "POST"])
+@login_required
 def friendsSearchResults():
     return render_template("friends/searchResults.html")
 
 
 # Routes/Friends/TeamUp
 @app.route("/friends/teamUp", methods=["GET", "POST"])
+@login_required
 def friendsTeamUp():
     return render_template("friends/teamUp.html")
 
 
 # Routes/Challenges
 @app.route("/challenges", methods=["GET", "POST"])
+@login_required
 def challenges():
     return render_template("challenges/overview.html")
 
 
 # Routes/Challenges/Accept
 @app.route("/challenges/accept", methods=["GET", "POST"])
+@login_required
 def challengesAccept():
     return render_template("challenges/accept.html")
 
 
 # Routes/Challenges/Details
 @app.route("/challenges/details", methods=["GET", "POST"])
+@login_required
 def challengesDetails():
     return render_template("challenges/details.html")
 
 
 # Routes/Challenges/History
 @app.route("/challenges/history", methods=["GET", "POST"])
+@login_required
 def challengesHistory():
     return render_template("challenges/history.html")
 
 
 # Routes/Challenges/New
 @app.route("/challenges/new", methods=["GET", "POST"])
+@login_required
 def challengesNew():
     return render_template("challenges/newChallenge.html")
 
 
 # Routes/Challenges/Search
 @app.route("/challenges/search", methods=["GET", "POST"])
+@login_required
 def challengesSearch():
     return render_template("challenges/search.html")
 
 
 # Routes/Challenges/Search/Results
 @app.route("/challenges/search/results", methods=["GET", "POST"])
+@login_required
 def challengesResults():
     return render_template("challenges/searchResults.html")
