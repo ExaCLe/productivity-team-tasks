@@ -1,5 +1,88 @@
-html
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+:root
 {
-    font:100;
-    color: green;
+    --clr-first: #000;
+    --clr-second: #fff;
+    --clr-third: rgb(206, 102, 102);
+    --clr-fourth: rgb(53, 132, 197);
+
+    --font: 'Poppins';
+
+    --font-h1: 300;
+    --font-h2: 400;
+    --font-p: 500;
+}
+
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    font-family: var(--font);
+}
+
+
+body
+{
+    text-align: center;
+}
+
+header
+{
+    padding: 1rem 0 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+header h1
+{
+    width: 100%;
+    font-weight: var(--font-h1);
+    font-size: 3rem;
+    letter-spacing: 0.3rem;
+    text-align: center;
+    justify-content: center;
+}
+
+header nav
+{
+    text-align: center;
+}
+
+header nav ul li
+{
+    display: inline-block;
+    padding: 1rem 6rem;
+    font-weight: var(--font-p);
+}
+
+header nav ul li a
+{
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+    color: var(--clr-first);
+    text-transform: uppercase;
+}
+
+header nav ul li a:after 
+{    
+    background: none repeat scroll 0 0 transparent;
+    bottom: 0;
+    content: "";
+    display: block;
+    height: 2px;
+    left: 50%;
+    position: absolute;
+    background: var(--clr-first);
+    transition: width 0.3s ease 0s, left 0.3s ease 0s;
+    width: 0;
+}
+   
+header nav ul li a:hover:after 
+{ 
+    width: 100%; 
+    left: 0; 
 }
