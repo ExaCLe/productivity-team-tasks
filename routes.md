@@ -1,0 +1,26 @@
+# possible routes:
+
+- /
+- /login
+- /register
+- /logout
+- /tasks
+- /tasks/edit
+- /tasks/add
+- /scoreboard/monthly
+- /scoreboard/weekly
+- /scoreboard/daily
+- /profile
+- /profile/edit
+- /friends
+- /friends/add
+- /friends/search
+- /friends/search/results
+- /friends/teamUp
+- /challenges
+- /Challenges/accept
+- /challenges/details
+- /challenges/history
+- /challenges/new
+- /challenges/search
+- /challenges/search/results
