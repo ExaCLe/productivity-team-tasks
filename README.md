@@ -13,8 +13,8 @@ https://productivity-team-tasks.herokuapp.com/
 Im Terminal:
 
 ```
-export FLASK_APP=application.py <br>
-pip install -r requirements.txt <br>
+export FLASK_APP=application.py
+pip install -r requirements.txt
 flask run
 ```
 
