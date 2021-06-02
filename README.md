@@ -8,7 +8,7 @@ https://www.figma.com/proto/Qzf2XmnQIsxNXHP5tFr11f/Productivity-Team-Tasks?page-
 
 https://productivity-team-tasks.herokuapp.com/
 
-// to run the server locally:
+# to run the server locally:
 
 Im Terminal:
 
