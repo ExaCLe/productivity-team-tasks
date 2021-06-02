@@ -16,7 +16,7 @@ Im Terminal:
 export FLASK_APP=application.py
 
 // on windows:
-setx FLASK_APP 'application.py'
+set FLASK_APP=application.py
 
 pip install -r requirements.txt
 flask run
