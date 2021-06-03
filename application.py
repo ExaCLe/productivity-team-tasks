@@ -151,7 +151,23 @@ def logout():
 @app.route("/tasks", methods=["GET", "POST"])
 @login_required
 def tasks():
-    return render_template("tasks/tasks.html")
+    if request.method == "GET":
+        # Get the data from the database
+        tasks = db.execute("SELECT * FROM tasks WHERE user_id=?",
+                           session.get("user_id"))
+
+        # Filter the tasks
+        tasksCopy = tasks.copy()
+        for task in tasksCopy:
+            print(task)
+            if task["fullfilled"] is None or task["fullfilled"] == 1:
+                tasks.remove(task)
+        return render_template("tasks/tasks.html", tasks=tasks)
+    else:
+        # Change the fullfilled state for the task
+        db.execute("UPDATE tasks SET fullfilled=1 WHERE id=?",
+                   request.form.get("id"))
+        return redirect("/tasks")
 
 
 # Routes/Tasks/Add

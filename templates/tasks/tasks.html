@@ -7,4 +7,14 @@
 
 {% block main %}
     Screen for Tasks Overview
+    {% for task in tasks %}
+        <div style="border: 5px solid black;">
+            <h1>{{task.description}}</h1>
+            <p>{{task.due}}</p>
+            <form method="POST" action="/tasks">
+                <input type="hidden" value={{task.id}} name="id">
+                <button type="submit">Erledigt{{task.id}}</button>
+            </form>
+        </div>
+    {% endfor %}
 {% endblock %}
