@@ -8,8 +8,10 @@
 {% block main %}
     Screen for Tasks Overview
     {% for task in tasks %}
+        <!-- There are the following fields in every task that are helpful: description (name) and due date -->
         <div style="border: 5px solid black;">
             <h1>{{task.description}}</h1>
+            <!-- Currently it is possible that there is no due date -->
             <p>{{task.due}}</p>
             <form method="POST" action="/tasks">
                 <input type="hidden" value={{task.id}} name="id">
@@ -17,4 +19,6 @@
             </form>
         </div>
     {% endfor %}
+    <br><br>
+    <a href="/tasks/add">Add New Task</a>
 {% endblock %}

@@ -178,7 +178,25 @@ def tasks():
 @app.route("/tasks/add", methods=["GET", "POST"])
 @login_required
 def addTask():
-    return render_template("tasks/add.html")
+    # Nothing todo if method is get
+    if request.method == "GET":
+        return render_template("tasks/add.html")
+    else:
+        # Make sure input name is given
+        name = request.form.get("name")
+        if name == "" or name is None:
+            return render_template("tasks/add.html",
+                                   message="Bitte Namen eingeben.")
+        date = request.form.get("due")
+        if date is not None:
+            db.execute(
+                "INSERT INTO tasks (description, user_id, due, fullfilled) VALUES (?, ?, ?, 0)",
+                name, session.get("user_id"), date)
+        else:
+            db.execute(
+                "INSERT INTO tasks (description, user_id, fullfilled) VALUES (?, ?, 0)",
+                name, session.get("user_id"))
+        return redirect("/tasks")
 
 
 # Routes/Tasks/Edit
