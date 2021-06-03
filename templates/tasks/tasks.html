@@ -13,7 +13,7 @@
             <p>{{task.due}}</p>
             <form method="POST" action="/tasks">
                 <input type="hidden" value={{task.id}} name="id">
-                <button type="submit">Erledigt{{task.id}}</button>
+                <button type="submit">Erledigt</button>
             </form>
         </div>
     {% endfor %}

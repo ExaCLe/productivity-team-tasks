@@ -164,9 +164,13 @@ def tasks():
                 tasks.remove(task)
         return render_template("tasks/tasks.html", tasks=tasks)
     else:
+        # Make sure the correct user is logged in
+        result = db.execute("SELECT * FROM tasks WHERE id=? AND user_id=?",
+                            request.form.get("id"), session.get("user_id"))
         # Change the fullfilled state for the task
-        db.execute("UPDATE tasks SET fullfilled=1 WHERE id=?",
-                   request.form.get("id"))
+        if result is not None:
+            db.execute("UPDATE tasks SET fullfilled=1 WHERE id=?",
+                       request.form.get("id"))
         return redirect("/tasks")
 
 
