@@ -11,7 +11,7 @@
         <p>{{message}}</p>
     {% endif %}
     <form method="post" action="/tasks/edit">
-        <input type="text" placeholder="Name" name="name" autofocus autocomplete="off" value={{task.description}}>
+        <input type="text" placeholder="Name" name="name" autofocus autocomplete="off" value={{task.name}}>
         <input type="date" name="due" placeholder="Fälligkeitsdatum" value={{task.due}}>
         <input type="hidden" name="id" value={{task.id}}>
         <button type="submit">Edit Task</button>

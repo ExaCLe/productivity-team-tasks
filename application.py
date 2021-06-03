@@ -98,6 +98,7 @@ def register():
     """Register user"""
     if request.method == "POST":
         username = request.form.get("username")
+        email = request.form.get("email")
         password = request.form.get("password")
         confirmation = request.form.get("confirmation")
         # validate the username
@@ -110,6 +111,16 @@ def register():
             return render_template("error.html",
                                    code=403,
                                    message="username is already used")
+        # Validate the email
+        if email == "":
+            return render_template("error.html",
+                                   code=403,
+                                   message="must provide email")
+        result = db.execute("SELECT * FROM users WHERE email = ?", email)
+        if result:
+            return render_template("error.html",
+                                   code=403,
+                                   message="email is already used")
 
         # check that the password field is not empty
         if not password or not confirmation:
@@ -123,8 +134,9 @@ def register():
                                    code=403,
                                    message="Password are not equal")
 
-        if not db.execute("INSERT INTO users(username, hash) VALUES(?, ?)",
-                          username, generate_password_hash(password)):
+        if not db.execute(
+                "INSERT INTO users(username, hash, email) VALUES(?, ?, ?)",
+                username, generate_password_hash(password), email):
             return render_template(
                 "error.html",
                 code=403,
@@ -153,15 +165,9 @@ def logout():
 def tasks():
     if request.method == "GET":
         # Get the data from the database
-        tasks = db.execute("SELECT * FROM tasks WHERE user_id=?",
-                           session.get("user_id"))
-
-        # Filter the tasks
-        tasksCopy = tasks.copy()
-        for task in tasksCopy:
-            print(task)
-            if task["fullfilled"] is None or task["fullfilled"] == 1:
-                tasks.remove(task)
+        tasks = db.execute(
+            "SELECT * FROM tasks WHERE user_id=? AND fullfilled=0",
+            session.get("user_id"))
         return render_template("tasks/tasks.html", tasks=tasks)
     else:
         # Make sure the correct user is logged in
@@ -190,11 +196,11 @@ def addTask():
         date = request.form.get("due")
         if date is not None:
             db.execute(
-                "INSERT INTO tasks (description, user_id, due, fullfilled) VALUES (?, ?, ?, 0)",
+                "INSERT INTO tasks (name, user_id, due, fullfilled, private) VALUES (?, ?, ?, 0, 0)",
                 name, session.get("user_id"), date)
         else:
             db.execute(
-                "INSERT INTO tasks (description, user_id, fullfilled) VALUES (?, ?, 0)",
+                "INSERT INTO tasks (description, user_id, fullfilled, private) VALUES (?, ?, 0, 0)",
                 name, session.get("user_id"))
         return redirect("/tasks")
 
@@ -223,8 +229,8 @@ def editTask():
         result = db.execute("SELECT * FROM tasks WHERE id=? AND user_id=?", id,
                             user)
         if result is not None:
-            db.execute("UPDATE tasks SET due=?, description=? WHERE id=?", due,
-                       name, id)
+            db.execute("UPDATE tasks SET due=?, name=? WHERE id=?", due, name,
+                       id)
         return redirect("/tasks")
 
 
