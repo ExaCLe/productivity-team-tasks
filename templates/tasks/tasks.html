@@ -17,8 +17,14 @@
                 <input type="hidden" value={{task.id}} name="id">
                 <button type="submit">Erledigt</button>
             </form>
+            <form method="GET" action="/tasks/edit">
+                <input type="hidden" value={{task.id}} name="id">
+                <button type="submit">Edit</button>
+            </form>
         </div>
     {% endfor %}
     <br><br>
     <a href="/tasks/add">Add New Task</a>
+    <br><br>
+    
 {% endblock %}

@@ -203,7 +203,29 @@ def addTask():
 @app.route("/tasks/edit", methods=["GET", "POST"])
 @login_required
 def editTask():
-    return render_template("tasks/edit.html")
+    # Get method for getting the info, post for editing
+    if request.method == "GET":
+        id = request.args.get("id")
+        # Make sure a valid is given
+        if id is None:
+            return redirect("/")
+        task = db.execute("SELECT * FROM tasks WHERE id=?", id)
+        return render_template("tasks/edit.html", task=task[0])
+    else:
+        name = request.form.get("name")
+        id = request.form.get("id")
+        user = session.get("user_id")
+        due = request.form.get("due")
+        # Make sure the task belongs to the user
+        if not name or not id:
+            return render_template("/tasks/edit",
+                                   message="Fehler. Kontaktiere den Support.")
+        result = db.execute("SELECT * FROM tasks WHERE id=? AND user_id=?", id,
+                            user)
+        if result is not None:
+            db.execute("UPDATE tasks SET due=?, description=? WHERE id=?", due,
+                       name, id)
+        return redirect("/tasks")
 
 
 # Routes/Scoreboard/Monthly
