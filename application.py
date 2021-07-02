@@ -259,6 +259,29 @@ def scoreboardDaily():
 @app.route("/profile", methods=["GET", "POST"])
 @login_required
 def profile():
+    if request.method == "GET":
+        username = request.args.get("username")
+        # Check for the user is trying to access his own profile
+        if username is None:
+            username = db.execute("SELECT username FROM users WHERE id=?",
+                                  session.get("user_id"))[0]["username"]
+            score = db.execute("SELECT score FROM scores WHERE user_id=?",
+                               session.get("user_id"))[0]["score"]
+            return render_template("profiles/profile.html",
+                                   own_profile=True,
+                                   username=username,
+                                   score=score)
+        else:
+            # Username provided via get
+            user_id = db.execute("SELECT id FROM users WHERE username=?",
+                                 username)[0]["id"]
+            print(user_id)
+            score = db.execute("SELECT score FROM scores WHERE user_id=?",
+                               user_id)[0]["score"]
+            return render_template("profiles/profile.html",
+                                   own_profile=False,
+                                   username=username,
+                                   score=score)
     return render_template("profiles/profile.html")
 
 

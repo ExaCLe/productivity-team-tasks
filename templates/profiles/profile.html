@@ -7,4 +7,9 @@
 
 {% block main %}
     Screen for Profile
+    <h1>{{username}}</h1>
+    <h2>{{score}}</h2>
+    {%if own_profile%}
+        <a href="/profile/edit">Edit</a>
+    {% endif %}
 {% endblock %}
