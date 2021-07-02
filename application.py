@@ -289,7 +289,83 @@ def profile():
 @app.route("/profile/edit", methods=["GET", "POST"])
 @login_required
 def profileEdit():
-    return render_template("profiles/edit.html")
+    if request.method == "GET":
+        return render_template("profiles/edit.html")
+    else:
+        username = request.form.get("username")
+        email = request.form.get("email")
+        current_password = request.form.get("current_password")
+        password = request.form.get("password")
+        confirmation = request.form.get("confirm_password")
+        print("_____")
+        print(email)
+        print("______")
+
+        if username != "":
+            # validate the username
+            if username == "":
+                return render_template("error.html",
+                                       code=403,
+                                       message="must provide username")
+            result = db.execute("SELECT * FROM users WHERE username = ?",
+                                username)
+            if result:
+                return render_template("error.html",
+                                       code=403,
+                                       message="username is already used")
+            if not db.execute("UPDATE users SET username = ? WHERE id = ?",
+                              username, session.get("user_id")):
+                return render_template(
+                    "error.html",
+                    code=403,
+                    message="Something went wrong. Please try again. ")
+        if email != "":
+            # Validate the email
+            if email == "":
+                return render_template("error.html",
+                                       code=403,
+                                       message="must provide email")
+            result = db.execute("SELECT * FROM users WHERE email = ?", email)
+            if result:
+                return render_template("error.html",
+                                       code=403,
+                                       message="email is already used")
+            if not db.execute("UPDATE users SET email = ? WHERE id = ?", email,
+                              session.get("user_id")):
+                return render_template(
+                    "error.html",
+                    code=403,
+                    message="Something went wrong. Please try again. ")
+        if password != "":
+            # check that the password field is not empty
+            if not password or not confirmation or not current_password:
+                return render_template("error.html",
+                                       code=403,
+                                       message="A password is missing")
+
+            # check that the two passwords are equal
+            if password != confirmation:
+                return render_template("error.html",
+                                       code=403,
+                                       message="Password are not equal")
+            # Query database for user_id
+            rows = db.execute("SELECT * FROM users WHERE id = ?",
+                              session.get("user_id"))
+
+            # Ensure user exists and password is correct
+            if len(rows) != 1 or not check_password_hash(
+                    rows[0]["hash"], current_password):
+                return render_template("error.html",
+                                       code=403,
+                                       message="invalid current password")
+            if not db.execute("UPDATE users SET hash = ? WHERE id = ?",
+                              generate_password_hash(password),
+                              session.get("user_id")):
+                return render_template(
+                    "error.html",
+                    code=403,
+                    message="Something went wrong. Please try again. ")
+        return redirect("/profile")
 
 
 # Routes/Friends

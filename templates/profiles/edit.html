@@ -7,4 +7,12 @@
 
 {% block main %}
     Screen for Edit Profile
+    <form method="POST" action="/profile/edit">
+        <input type="email" placeholder="Neue E-Mail Adresse" name="email" />
+        <input type="password" placeholder="Neues Password" name="password" />
+        <input type="password" placeholder="Bestätige neues Password" name="confirm_password" />
+        <input type="password" placeholder="Aktuelles Password" name="current_password" />
+        <input type="username" placeholder="Neuer Username" name="username" />
+        <button type="submit" >Submit</button>
+    </form>
 {% endblock %}
