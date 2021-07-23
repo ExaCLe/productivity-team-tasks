@@ -530,11 +530,36 @@ def friendsSearch():
 
 
 # Routes/Friends/TeamUp
-@app.route("/friends/teamUp", methods=["GET", "POST"])
+@app.route("/friends/teamUp", methods=["GET"])
 @login_required
 def friendsTeamUp():
-    # TODO: Validate the team UP (hidden input field in friends.html)
-    return render_template("friends/teamUp.html")
+    # Validate the teamUp
+    username = request.args.get("username_friend")
+    if not username:
+        return render_template(
+            "error.html", message="Error. No username. Please try again. ")
+    friend = db.execute("SELECT * FROM users WHERE username = ?", username)
+    if len(friend) == 0:
+        return render_template("error.html",
+                               message="User not found. Please try again. ")
+    friend_id = friend[0]["id"]
+    user_id = session.get("user_id")
+    verify = db.execute(
+        "SELECT * FROM friends WHERE (first_user_id = ? AND second_user_id = ?) OR (first_user_id = ? AND second_user_id = ? ) ",
+        user_id, friend_id, friend_id, user_id)
+    if len(verify) == 0:
+        return render_template(
+            "error.html",
+            message="The given user is not your friend. Please try again. ")
+    friend_tasks = db.execute(
+        "SELECT * FROM tasks WHERE user_id = ? and private = false", friend_id)
+    user_tasks = db.execute("SELECT * FROM tasks WHERE user_id = ?", user_id)
+    return render_template(
+        "friends/teamUp.html",
+        friend_tasks=friend_tasks,
+        user_tasks=user_tasks,
+        friend=friend[0],
+    )
 
 
 # Routes/Challenges

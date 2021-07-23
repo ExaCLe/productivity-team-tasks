@@ -7,4 +7,14 @@
 
 {% block main %}
     Screen for Team Up
+    <h1>{{friend.username}}s tasks</h1>
+    {% for task in friend_tasks %}
+    <h3> {{task.name}}</h3>
+    <p>{{task.due}}</p>
+    {%endfor%}
+    <h1>Your Tasks</h1>
+    {%for task in user_tasks %}
+    <h3> {{task.name}}</h3>
+        <p>{{task.due}}</p>
+    {%endfor %}
 {% endblock %}
