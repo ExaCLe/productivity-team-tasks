@@ -261,7 +261,7 @@ def scoreboardDaily():
 def profile():
     if request.method == "GET":
         username = request.args.get("username")
-        # Check for the user is trying to access his own profile
+        # Check for the user trying to access his own profile
         if username is None:
             username = db.execute("SELECT username FROM users WHERE id=?",
                                   session.get("user_id"))[0]["username"]
@@ -275,7 +275,6 @@ def profile():
             # Username provided via get
             user_id = db.execute("SELECT id FROM users WHERE username=?",
                                  username)[0]["id"]
-            print(user_id)
             score = db.execute("SELECT score FROM scores WHERE user_id=?",
                                user_id)[0]["score"]
             return render_template("profiles/profile.html",
@@ -369,24 +368,161 @@ def profileEdit():
 
 
 # Routes/Friends
-@app.route("/friends", methods=["GET", "POST"])
+@app.route("/friends", methods=["GET"])
 @login_required
 def friends():
-    return render_template("friends/friends.html")
+    user_id = session.get("user_id")
+    # Get the friends from the db
+    friends = set()
+    friends_list_first = db.execute(
+        "SELECT * FROM friends WHERE first_user_id = ? ", user_id)
+    friends_list_second = db.execute(
+        "SELECT * FROM friends WHERE second_user_id = ?", user_id)
+    for entry in friends_list_first:
+        friend_information = db.execute("SELECT * FROM users WHERE id = ?",
+                                        entry["second_user_id"])
+        friend_score = db.execute("SELECT * FROM scores WHERE user_id = ?",
+                                  entry["second_user_id"])
+        try:
+            score = friend_score[0]["score"]
+        except:
+            score = "xxxx"
+        friend = (score, friend_information[0]["username"])
+        friends.add(friend)
+    for entry in friends_list_second:
+        friend_information = db.execute("SELECT * FROM users WHERE id = ?",
+                                        entry["first_user_id"])
+        friend_score = db.execute("SELECT * FROM scores WHERE user_id = ?",
+                                  entry["first_user_id"])
+        try:
+            score = friend_score[0]["score"]
+        except:
+            score = "xxxx"
+        friend = (score, friend_information[0]["username"])
+        friends.add(friend)
+
+    # Load the open friend requests
+    incoming_requests = set()
+    requests = db.execute(
+        "SELECT * FROM requests WHERE recipient_id = ? AND type = 0", user_id)
+    for req in requests:
+        try:
+            name = db.execute("SELECT username FROM users WHERE id = ?",
+                              req["sender_id"])[0]["username"]
+            incoming_requests.add(name)
+        except:
+            print("An error occured with one friend request.")
+    pending_requests = set()
+    requests = db.execute(
+        "SELECT * FROM requests WHERE sender_id = ? AND type = 0", user_id)
+    for req in requests:
+        try:
+            name = db.execute("SELECT username FROM users WHERE id = ?",
+                              req["sender_id"])[0]["username"]
+            pending_requests.add(name)
+        except:
+            print("An error occured with one friend request.")
+    return render_template("friends/friends.html",
+                           friends=friends,
+                           incoming_requests=incoming_requests,
+                           pending_requests=pending_requests)
+
+
+def friendRequest(add):
+    user_id = session.get("user_id")
+    # Make sure that the request exists
+    sender = db.execute("SELECT id FROM users WHERE username = ? ",
+                        request.form.get("username"))
+    if len(sender) == 0:
+        return render_template("error.html",
+                               message="User not found. Please try again. ")
+    try:
+        sender_id = sender[0]["id"]
+    except:
+        return render_template(
+            "error.html",
+            message="Sender id was not unpacked correctly. Please try again. ")
+
+    req = db.execute(
+        "SELECT * FROM requests WHERE sender_id = ? AND recipient_id = ? AND type=0",
+        sender_id, user_id)
+    if len(req) == 0:
+        return render_template(
+            "error.html",
+            message="The request was not found. Please try again. ")
+    # Delete the open request and insert the friendship if needed
+    if (add):
+        db.execute(
+            "INSERT INTO friends (first_user_id, second_user_id) VALUES (?,?)",
+            user_id, sender_id)
+    db.execute(
+        "DELETE FROM requests WHERE sender_id = ? AND recipient_id = ? AND type=0",
+        sender_id, user_id)
+    return redirect("/friends")
+
+
+# Routes/Friends/Add/Accept
+@app.route("/friends/add/accept", methods=["POST"])
+@login_required
+def friendAccept():
+    return friendRequest(True)
+
+
+# Routes/Friends/Add/Decline
+@app.route("/friends/add/decline", methods=["POST"])
+@login_required
+def friendDecline():
+    return friendRequest(False)
 
 
 # Routes/Friends/Add
 @app.route("/friends/add", methods=["GET", "POST"])
 @login_required
 def friendsAdd():
-    return render_template("friends/add.html")
+    # For get return the information about the possible friend
+    if request.method == "GET":
+        username = request.args.get("username")
+        if username is None:
+            return render_template(
+                "error.html", message="No username given. Please try again.")
+        user_id = db.execute("SELECT id FROM users WHERE username = ?",
+                             username)
+        if len(user_id) == 0:
+            return render_template(
+                "error.html", message="User not found. Please try again. ")
+        try:
+            score = db.execute("SELECT score FROM scores WHERE user_id = ?",
+                               user_id[0]["id"])[0]["score"]
+        except:
+            score = None
+        return render_template("friends/add.html",
+                               score=score,
+                               username=username)
+    # For POST create a friend request in the db
+    else:
+        sender_id = session.get("user_id")
+        username = request.form.get("username")
+        recipient_id = db.execute("SELECT id FROM users WHERE username = ?",
+                                  username)
+        if len(recipient_id) == 0:
+            return render_template(
+                "error.html", message="User not found. Please try again. ")
+        recipient_id = recipient_id[0]["id"]
+        # Type 0 is for friend reqests
+        db.execute(
+            "INSERT INTO requests (sender_id, recipient_id, type) VALUES (?, ?, ?)",
+            sender_id, recipient_id, 0)
+        return redirect("/friends")
 
 
 # Routes/Friends/Search
 @app.route("/friends/search", methods=["GET", "POST"])
 @login_required
 def friendsSearch():
-    return render_template("friends/search.html")
+    if request.method == "GET":
+        return render_template("friends/search.html")
+    else:
+        return redirect("/friends/search/results")
 
 
 # Routes/Friends/Search/Results
@@ -400,6 +536,7 @@ def friendsSearchResults():
 @app.route("/friends/teamUp", methods=["GET", "POST"])
 @login_required
 def friendsTeamUp():
+    # TODO: Validate the team UP (hidden input field in friends.html)
     return render_template("friends/teamUp.html")
 
 

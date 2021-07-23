@@ -7,4 +7,10 @@
 
 {% block main %}
     Screen for Add New Friend
+    <h1>{{username}}</h1>
+    <h2>{{score}}</h2>
+    <form action="/friends/add" method="POST">
+        <input type="hidden" name="username" value={{username}}>    
+        <button type="submit">Send friend request</button>
+    </form>
 {% endblock %}

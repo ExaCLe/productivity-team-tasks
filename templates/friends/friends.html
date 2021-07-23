@@ -7,4 +7,33 @@
 
 {% block main %}
     Screen for Friends Overview
+    <a href="/friends/search">Neue Freunde suchen</a>
+    {% for score, username in friends %}
+    <br>
+        <p>{{username}}</p>
+        <p>{{score}}</p>
+        <form method="GET" action="/friends/teamUp">
+            <input type="hidden" name="username_friend" value={{username}} >
+            <button type="submit">View his tasks</button>
+        </form>
+    <br>
+    {% endfor %}
+    <h2>Incoming Requests</h2>
+    {% for name in incoming_requests %}
+    <br>
+        <p>{{name}}</p>
+        <form action="/friends/add/accept" method="POST">
+            <input type="hidden" name="username" value={{name}} > 
+            <button type="submit">Bestätigen</button>
+        </form>
+        <form action="/friends/add/decline" method="POST">
+            <input type="hidden" name="username" value={{name}} > 
+            <button type="submit">Ablehnen</button>
+        </form>
+    {% endfor %}
+    <h2>Outgoing Requests</h2>
+    {% for name in pending_requests %}
+    <br>
+        <p>{{name}}</p>
+    {% endfor %}
 {% endblock %}

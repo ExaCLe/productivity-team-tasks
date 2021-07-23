@@ -17,6 +17,8 @@
 - /friends/search
 - /friends/search/results
 - /friends/teamUp
+- /friends/add/accept (POST only)
+- /friends/add/decline (POST only)
 - /challenges
 - /Challenges/accept
 - /challenges/details
