@@ -418,7 +418,7 @@ def friends():
     for req in requests:
         try:
             name = db.execute("SELECT username FROM users WHERE id = ?",
-                              req["sender_id"])[0]["username"]
+                              req["recipient_id"])[0]["username"]
             pending_requests.add(name)
         except:
             print("An error occured with one friend request.")
@@ -522,14 +522,11 @@ def friendsSearch():
     if request.method == "GET":
         return render_template("friends/search.html")
     else:
-        return redirect("/friends/search/results")
-
-
-# Routes/Friends/Search/Results
-@app.route("/friends/search/results", methods=["GET", "POST"])
-@login_required
-def friendsSearchResults():
-    return render_template("friends/searchResults.html")
+        username = request.form.get("username")
+        users = db.execute(
+            "SELECT * FROM users WHERE username LIKE ? AND NOT id = ?",
+            username, session.get("user_id"))
+        return render_template("friends/searchResults.html", users=users)
 
 
 # Routes/Friends/TeamUp
