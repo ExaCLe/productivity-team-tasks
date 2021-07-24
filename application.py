@@ -40,6 +40,19 @@ Session(app)
 db = SQL("sqlite:///tasks.db")
 
 
+def return_error(message):
+    return render_template("error.html", message=message)
+
+
+def getUsername(id):
+    try:
+        username = db.execute("SELECT username FROM users WHERE id = ?",
+                              id)[0]["username"]
+    except:
+        username = None
+    return username
+
+
 # Route/
 @app.route("/")
 @login_required
@@ -367,6 +380,32 @@ def profileEdit():
         return redirect("/profile")
 
 
+def getRequests(user_id, type):
+    incoming_requests = set()
+    requests = db.execute(
+        "SELECT * FROM requests WHERE recipient_id = ? AND type = ?", user_id,
+        type)
+    for req in requests:
+        try:
+            name = db.execute("SELECT username FROM users WHERE id = ?",
+                              req["sender_id"])[0]["username"]
+            incoming_requests.add(name)
+        except:
+            print("An error occured with one friend request.")
+    pending_requests = set()
+    requests = db.execute(
+        "SELECT * FROM requests WHERE sender_id = ? AND type = ?", user_id,
+        type)
+    for req in requests:
+        try:
+            name = db.execute("SELECT username FROM users WHERE id = ?",
+                              req["recipient_id"])[0]["username"]
+            pending_requests.add(name)
+        except:
+            print("An error occured with one friend request.")
+    return incoming_requests, pending_requests
+
+
 # Routes/Friends
 @app.route("/friends", methods=["GET"])
 @login_required
@@ -559,7 +598,6 @@ def getChallenges(history):
             "SELECT * FROM challenges WHERE (challenger_id = ? OR challenged_id = ?) AND expire_date >= Date('now')",
             user_id, user_id)
     for challenge in challenges:
-        print(challenge)
         first_user = db.execute("SELECT username FROM users WHERE id = ?",
                                 challenge["challenger_id"])[0]["username"]
         second_user = db.execute("SELECT username FROM users WHERE id = ?",
@@ -604,7 +642,28 @@ def challengesAccept():
 @app.route("/challenges/details", methods=["GET", "POST"])
 @login_required
 def challengesDetails():
-    return render_template("challenges/details.html")
+    # Verify the request
+    user_id = session.get("user_id")
+    challenge_id = request.args.get("challenge_id")
+    if not challenge_id:
+        return return_error("No challenge id provided. Please try again.")
+    data = db.execute(
+        "SELECT * FROM challenges WHERE (challenger_id = ? OR challenged_id = ?) AND id = ?",
+        user_id, user_id, challenge_id)
+    if len(data) == 0:
+        return return_error(
+            "You either don't have access to this challenge or the challenge does not exist."
+        )
+    first_user = getUsername(data[0]["challenger_id"])
+    second_user = getUsername(data[0]["challenged_id"])
+    if first_user is None or second_user is None:
+        return return_error("One user was not found. Please try again.")
+    return render_template("challenges/details.html",
+                           first_user=first_user,
+                           second_user=second_user,
+                           date=data[0]["expire_date"],
+                           first_score=data[0]["challenger_score"],
+                           second_score=data[0]["challenged_score"])
 
 
 # Routes/Challenges/History
@@ -666,29 +725,3 @@ def createRequest(sender_id, recipient_id, type):
     db.execute(
         "INSERT INTO requests (sender_id, recipient_id, type) VALUES (?, ?, ?)",
         sender_id, recipient_id, type)
-
-
-def getRequests(user_id, type):
-    incoming_requests = set()
-    requests = db.execute(
-        "SELECT * FROM requests WHERE recipient_id = ? AND type = ?", user_id,
-        type)
-    for req in requests:
-        try:
-            name = db.execute("SELECT username FROM users WHERE id = ?",
-                              req["sender_id"])[0]["username"]
-            incoming_requests.add(name)
-        except:
-            print("An error occured with one friend request.")
-    pending_requests = set()
-    requests = db.execute(
-        "SELECT * FROM requests WHERE sender_id = ? AND type = ?", user_id,
-        type)
-    for req in requests:
-        try:
-            name = db.execute("SELECT username FROM users WHERE id = ?",
-                              req["recipient_id"])[0]["username"]
-            pending_requests.add(name)
-        except:
-            print("An error occured with one friend request.")
-    return incoming_requests, pending_requests

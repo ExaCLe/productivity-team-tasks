@@ -12,6 +12,10 @@
         <h3>{{first_user}} vs. {{second_user}}</h3>
         <h4>{{first_score}} - {{second_score}}</h4>
         <h5> {{date}}</h5>
+        <form action="/challenges/details" method="GET">
+            <input type="hidden" name="challenge_id" value={{id}}>
+            <button type="submit">Details</button>
+        </form>
     {%endfor%}
     <div><a href="/challenges/history">History</a></div>
     <div><a href="/challenges/new">Neue Challenge</a></div>
