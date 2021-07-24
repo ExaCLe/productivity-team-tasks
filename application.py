@@ -57,7 +57,20 @@ def getUsername(id):
 @app.route("/")
 @login_required
 def index():
-    return render_template("index.html")
+    incoming_friend_requests, outgoind_friend_requests = getRequests(
+        session.get("user_id"), 0)
+    incoming_challenge_requests, outgoing_challenge_requests = getRequests(
+        session.get("user_id"), 1)
+    friends = getFriends()
+    challenges = getChallenges(False)
+    tasks = getTasks()
+    return render_template(
+        "index.html",
+        incoming_challenge_requests=incoming_challenge_requests,
+        incoming_friend_requests=incoming_friend_requests,
+        friends=friends,
+        challenges=challenges,
+        tasks=tasks)
 
 
 # Routes/Login
@@ -172,15 +185,18 @@ def logout():
     return redirect("/login")
 
 
+def getTasks():
+    return db.execute("SELECT * FROM tasks WHERE user_id=? AND fullfilled=0",
+                      session.get("user_id"))
+
+
 # Routes/Tasks
 @app.route("/tasks", methods=["GET", "POST"])
 @login_required
 def tasks():
     if request.method == "GET":
         # Get the data from the database
-        tasks = db.execute(
-            "SELECT * FROM tasks WHERE user_id=? AND fullfilled=0",
-            session.get("user_id"))
+        tasks = getTasks()
         return render_template("tasks/tasks.html", tasks=tasks)
     else:
         # Make sure the correct user is logged in
@@ -406,10 +422,7 @@ def getRequests(user_id, type):
     return incoming_requests, pending_requests
 
 
-# Routes/Friends
-@app.route("/friends", methods=["GET"])
-@login_required
-def friends():
+def getFriends():
     user_id = session.get("user_id")
     # Get the friends from the db
     friends = set()
@@ -439,7 +452,15 @@ def friends():
             score = "xxxx"
         friend = (score, friend_information[0]["username"])
         friends.add(friend)
+    return friends
 
+
+# Routes/Friends
+@app.route("/friends", methods=["GET"])
+@login_required
+def friends():
+    user_id = session.get("user_id")
+    friends = getFriends()
     # Load the open friend requests
     incoming_requests, pending_requests = getRequests(user_id, 0)
     return render_template("friends/friends.html",
