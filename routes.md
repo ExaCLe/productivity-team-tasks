@@ -16,6 +16,7 @@
 - /friends/add
 - /friends/search
 - /friends/teamUp
+- /friends/delete
 - /friends/add/accept (POST only)
 - /friends/add/decline (POST only)
 - /challenges

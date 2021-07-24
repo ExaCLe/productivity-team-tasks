@@ -1,7 +1,7 @@
 # Query for routes like: Routes/Tasks/Add
 
 from cs50 import SQL
-from flask import Flask, flash, redirect, render_template, request, session
+from flask import Flask, url_for, redirect, render_template, request, session
 from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -302,14 +302,30 @@ def profile():
                                    score=score)
         else:
             # Username provided via get
-            user_id = db.execute("SELECT id FROM users WHERE username=?",
-                                 username)[0]["id"]
-            score = db.execute("SELECT score FROM scores WHERE user_id=?",
-                               user_id)[0]["score"]
-            return render_template("profiles/profile.html",
-                                   own_profile=False,
-                                   username=username,
-                                   score=score)
+            try:
+                user_id = db.execute("SELECT id FROM users WHERE username=?",
+                                     username)[0]["id"]
+                score = db.execute("SELECT score FROM scores WHERE user_id=?",
+                                   user_id)
+                if len(score) == 0:
+                    score = "xxxx"
+                else:
+                    score = score[0]["score"]
+                friend = db.execute(
+                    "SELECT * FROM friends WHERE (first_user_id = ? AND second_user_id = ?) OR (first_user_id = ? AND second_user_id = ?)",
+                    user_id, session.get("user_id"), session.get("user_id"),
+                    user_id)
+                if len(friend) == 0:
+                    friend = False
+                else:
+                    friend = True
+                return render_template("profiles/profile.html",
+                                       own_profile=False,
+                                       username=username,
+                                       score=score,
+                                       friend=friend)
+            except:
+                return return_error("An error occured. ")
     return render_template("profiles/profile.html")
 
 
@@ -514,11 +530,37 @@ def friendAccept():
     return redirect("/friends")
 
 
+def getId(username):
+    try:
+        return db.execute("SELECT id FROM users WHERE username = ?",
+                          username)[0]["id"]
+    except:
+        return None
+
+
 # Routes/Friends/Add/Decline
 @app.route("/friends/add/decline", methods=["POST"])
 @login_required
 def friendDecline():
     respondRequest(0, False)
+    return redirect("/friends")
+
+
+# Routes/Friends/Delete
+@app.route("/friends/delete", methods=["GET", "POST"])
+@login_required
+def friendsDelete():
+    username = request.form.get("username")
+    if not username:
+        return return_error("No username given. Please try again.")
+    friend_id = getId(username)
+    if not friend_id:
+        return return_error("User id not found. Please try again.")
+    user_id = session.get("user_id")
+    db.execute(
+        "DELETE FROM friends WHERE (first_user_id = ? AND second_user_id = ?) OR (first_user_id = ? AND second_user_id = ?)",
+        user_id, friend_id, friend_id, user_id)
+    print("deleted")
     return redirect("/friends")
 
 

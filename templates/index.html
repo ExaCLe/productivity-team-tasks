@@ -38,6 +38,10 @@
     <br>
         <p>{{username}}</p>
         <p>{{score}}</p>
+        <form method="GET" action="/profile">
+            <input type="hidden" name="username" value={{username}} >
+            <button type="submit">View his profile</button>
+        </form>
         <form method="GET" action="/friends/teamUp">
             <input type="hidden" name="username_friend" value={{username}} >
             <button type="submit">View his tasks</button>
