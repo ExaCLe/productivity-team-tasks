@@ -562,11 +562,36 @@ def friendsTeamUp():
     )
 
 
+def getChallenges(history):
+    challenges_set = set()
+    user_id = session.get("user_id")
+    if history:
+        challenges = db.execute(
+            "SELECT * FROM challenges WHERE (challenger_id = ? OR challenged_id = ?) AND expire_date < Date('now')",
+            user_id, user_id)
+    else:
+        challenges = db.execute(
+            "SELECT * FROM challenges WHERE (challenger_id = ? OR challenged_id = ?) AND expire_date >= Date('now')",
+            user_id, user_id)
+    for challenge in challenges:
+        print(challenge)
+        first_user = db.execute("SELECT username FROM users WHERE id = ?",
+                                challenge["challenger_id"])[0]["username"]
+        second_user = db.execute("SELECT username FROM users WHERE id = ?",
+                                 challenge["challenged_id"])[0]["username"]
+        challenge = (challenge["id"], challenge["challenger_score"],
+                     challenge["challenged_score"], first_user, second_user,
+                     challenge["expire_date"])
+        challenges_set.add(challenge)
+    return challenges_set
+
+
 # Routes/Challenges
-@app.route("/challenges", methods=["GET", "POST"])
+@app.route("/challenges", methods=["GET"])
 @login_required
 def challenges():
-    return render_template("challenges/overview.html")
+    challenges = getChallenges(False)
+    return render_template("challenges/overview.html", challenges=challenges)
 
 
 # Routes/Challenges/Accept
@@ -587,7 +612,8 @@ def challengesDetails():
 @app.route("/challenges/history", methods=["GET", "POST"])
 @login_required
 def challengesHistory():
-    return render_template("challenges/history.html")
+    challenges = getChallenges(True)
+    return render_template("challenges/history.html", challenges=challenges)
 
 
 # Routes/Challenges/New
