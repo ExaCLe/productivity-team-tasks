@@ -402,33 +402,14 @@ def friends():
         friends.add(friend)
 
     # Load the open friend requests
-    incoming_requests = set()
-    requests = db.execute(
-        "SELECT * FROM requests WHERE recipient_id = ? AND type = 0", user_id)
-    for req in requests:
-        try:
-            name = db.execute("SELECT username FROM users WHERE id = ?",
-                              req["sender_id"])[0]["username"]
-            incoming_requests.add(name)
-        except:
-            print("An error occured with one friend request.")
-    pending_requests = set()
-    requests = db.execute(
-        "SELECT * FROM requests WHERE sender_id = ? AND type = 0", user_id)
-    for req in requests:
-        try:
-            name = db.execute("SELECT username FROM users WHERE id = ?",
-                              req["recipient_id"])[0]["username"]
-            pending_requests.add(name)
-        except:
-            print("An error occured with one friend request.")
+    incoming_requests, pending_requests = getRequests(user_id, 0)
     return render_template("friends/friends.html",
                            friends=friends,
                            incoming_requests=incoming_requests,
                            pending_requests=pending_requests)
 
 
-def friendRequest(add):
+def respondRequest(type, add):
     user_id = session.get("user_id")
     # Make sure that the request exists
     sender = db.execute("SELECT id FROM users WHERE username = ? ",
@@ -444,35 +425,41 @@ def friendRequest(add):
             message="Sender id was not unpacked correctly. Please try again. ")
 
     req = db.execute(
-        "SELECT * FROM requests WHERE sender_id = ? AND recipient_id = ? AND type=0",
-        sender_id, user_id)
+        "SELECT * FROM requests WHERE sender_id = ? AND recipient_id = ? AND type=?",
+        sender_id, user_id, type)
     if len(req) == 0:
         return render_template(
             "error.html",
             message="The request was not found. Please try again. ")
     # Delete the open request and insert the friendship if needed
     if (add):
-        db.execute(
-            "INSERT INTO friends (first_user_id, second_user_id) VALUES (?,?)",
-            user_id, sender_id)
+        if type == 0:
+            db.execute(
+                "INSERT INTO friends (first_user_id, second_user_id) VALUES (?,?)",
+                user_id, sender_id)
+        if type == 1:
+            db.execute(
+                "INSERT INTO challenges(challenger_id, challenged_id, challenger_score, challenged_score, finished, expire_date) VALUES (?, ?, 0, 0, false, Date('now', '+7 days'))",
+                sender_id, user_id)
     db.execute(
-        "DELETE FROM requests WHERE sender_id = ? AND recipient_id = ? AND type=0",
-        sender_id, user_id)
-    return redirect("/friends")
+        "DELETE FROM requests WHERE sender_id = ? AND recipient_id = ? AND type=?",
+        sender_id, user_id, type)
 
 
 # Routes/Friends/Add/Accept
 @app.route("/friends/add/accept", methods=["POST"])
 @login_required
 def friendAccept():
-    return friendRequest(True)
+    respondRequest(0, True)
+    return redirect("/friends")
 
 
 # Routes/Friends/Add/Decline
 @app.route("/friends/add/decline", methods=["POST"])
 @login_required
 def friendDecline():
-    return friendRequest(False)
+    respondRequest(0, False)
+    return redirect("/friends")
 
 
 # Routes/Friends/Add
@@ -589,14 +576,28 @@ def getChallenges(history):
 @login_required
 def challenges():
     challenges = getChallenges(False)
-    return render_template("challenges/overview.html", challenges=challenges)
+    incoming_requests, outgoing_requests = getRequests(session.get("user_id"),
+                                                       1)
+    return render_template("challenges/overview.html",
+                           challenges=challenges,
+                           incoming_requests=incoming_requests,
+                           pending_requests=outgoing_requests)
+
+
+# Routes/Challenges/Decline
+@app.route("/challenges/decline", methods=["POST"])
+@login_required
+def challengesDecline():
+    respondRequest(1, False)
+    return redirect("/challenges")
 
 
 # Routes/Challenges/Accept
-@app.route("/challenges/accept", methods=["GET", "POST"])
+@app.route("/challenges/accept", methods=["POST"])
 @login_required
 def challengesAccept():
-    return render_template("challenges/accept.html")
+    respondRequest(1, True)
+    return redirect("/challenges")
 
 
 # Routes/Challenges/Details
@@ -665,3 +666,29 @@ def createRequest(sender_id, recipient_id, type):
     db.execute(
         "INSERT INTO requests (sender_id, recipient_id, type) VALUES (?, ?, ?)",
         sender_id, recipient_id, type)
+
+
+def getRequests(user_id, type):
+    incoming_requests = set()
+    requests = db.execute(
+        "SELECT * FROM requests WHERE recipient_id = ? AND type = ?", user_id,
+        type)
+    for req in requests:
+        try:
+            name = db.execute("SELECT username FROM users WHERE id = ?",
+                              req["sender_id"])[0]["username"]
+            incoming_requests.add(name)
+        except:
+            print("An error occured with one friend request.")
+    pending_requests = set()
+    requests = db.execute(
+        "SELECT * FROM requests WHERE sender_id = ? AND type = ?", user_id,
+        type)
+    for req in requests:
+        try:
+            name = db.execute("SELECT username FROM users WHERE id = ?",
+                              req["recipient_id"])[0]["username"]
+            pending_requests.add(name)
+        except:
+            print("An error occured with one friend request.")
+    return incoming_requests, pending_requests

@@ -16,4 +16,22 @@
     <div><a href="/challenges/history">History</a></div>
     <div><a href="/challenges/new">Neue Challenge</a></div>
     <div><a href="/challenges/search">Suchen</a></div>
+    <h2>Incoming Requests</h2>
+    {% for name in incoming_requests %}
+    <br>
+        <p>{{name}}</p>
+        <form action="/challenges/accept" method="POST">
+            <input type="hidden" name="username" value={{name}} > 
+            <button type="submit">Bestätigen</button>
+        </form>
+        <form action="/challenges/decline" method="POST">
+            <input type="hidden" name="username" value={{name}} > 
+            <button type="submit">Ablehnen</button>
+        </form>
+    {% endfor %}
+    <h2>Outgoing Requests</h2>
+    {% for name in pending_requests %}
+    <br>
+        <p>{{name}}</p>
+    {% endfor %}
 {% endblock %}
