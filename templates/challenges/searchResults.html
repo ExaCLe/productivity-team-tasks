@@ -7,4 +7,13 @@
 
 {% block main %}
     Screen for Search Results Challenges
+    {%for result in results %}
+        <div>
+            <h2>{{result.username}}</h2>
+            <form action="/challenges/search/results" method="POST">
+                <input type="hidden" name="username" value={{result.username}} >
+                <button type="submit" >Send Request</button>
+            </form>
+        </div>
+    {%endfor%}
 {% endblock %}

@@ -509,9 +509,7 @@ def friendsAdd():
                 "error.html", message="User not found. Please try again. ")
         recipient_id = recipient_id[0]["id"]
         # Type 0 is for friend reqests
-        db.execute(
-            "INSERT INTO requests (sender_id, recipient_id, type) VALUES (?, ?, ?)",
-            sender_id, recipient_id, 0)
+        createRequest(sender_id, recipient_id, 0)
         return redirect("/friends")
 
 
@@ -634,4 +632,36 @@ def challengesSearch():
 @app.route("/challenges/search/results", methods=["GET", "POST"])
 @login_required
 def challengesResults():
-    return render_template("challenges/searchResults.html")
+    if request.method == "GET":
+        username = request.args.get("username")
+        if not username:
+            return render_template("error.html",
+                                   message="No username. Please try again. ")
+        results = db.execute(
+            "SELECT username FROM users WHERE username LIKE ? AND NOT id = ?",
+            username, session.get("user_id"))
+        return render_template("challenges/searchResults.html",
+                               results=results)
+    else:
+        username = request.form.get("username")
+        if not username:
+            return render_template("error.html",
+                                   message="No username. Please try again. ")
+        user_id = db.execute("SELECT id FROM users WHERE username = ?",
+                             username)
+        if len(user_id) == 0:
+            return render_template(
+                "error.html", message="User not found. Please try again. ")
+        try:
+            user_id = user_id[0]["id"]
+        except:
+            return render_template(
+                "error.html", message="An error occured. Please try again. ")
+        createRequest(session.get("user_id"), user_id, 1)
+        return redirect("/challenges")
+
+
+def createRequest(sender_id, recipient_id, type):
+    db.execute(
+        "INSERT INTO requests (sender_id, recipient_id, type) VALUES (?, ?, ?)",
+        sender_id, recipient_id, type)
