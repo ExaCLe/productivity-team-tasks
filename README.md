@@ -1,5 +1,16 @@
 # productivity-team-tasks
 
+# Ideas
+
+- Long Tasks with Progress Bar
+- Categories for Tasks with Icons
+  - Laundry, etc.
+  - Work
+  - Personal Projects
+  - Hobbys
+  - Education
+- Extra Score for each Categorie
+
 # Design Wireframes
 
 https://www.figma.com/proto/Qzf2XmnQIsxNXHP5tFr11f/Productivity-Team-Tasks?page-id=0%3A1&node-id=3%3A12&viewport=-3495%2C32%2C0.6044042110443115&scaling=min-zoom
