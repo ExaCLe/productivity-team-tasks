@@ -6,9 +6,8 @@
 {% endblock %}
 
 {% block main %}
-    Screen for Search Friends
-    <form action="/friends/search" method="POST">
-        <input placeholder="Username" name="username" type="text">
-        <button type="submit">Suchen</button>
+    <form action="/friends/search" method="POST" class="flex">
+        <input placeholder="Username" name="username" type="text" class="textfield margin padding">
+        <button type="submit" class="btn-primary padding">Suchen</button>
     </form>
 {% endblock %}
