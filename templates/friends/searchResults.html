@@ -6,13 +6,14 @@
 {% endblock %}
 
 {% block main %}
-    Screen for Search Friends Results
     {% for user in users %}
-    <br>
-    <p>{{user.username}}</p>
-    <form action="/friends/add" method="GET">
+    <div class="entry">
+        <p>{{user.username}}</p>
+    <form action="/friends/add" method="GET" >
         <input type="hidden" name="username" value={{user.username}} > 
-        <button type="submit" >Hinzufügen</button>
+        <button type="submit" class="btn-small" >Hinzufügen</button>
+    </div>
+    
     </form>
 
     {% endfor %}
