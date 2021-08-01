@@ -6,8 +6,11 @@
 {% endblock %}
 
 {% block main %}
-    Screen for Friends Overview
-    <a href="/friends/search">Neue Freunde suchen</a>
+<div class="container">
+
+
+<div class="btn-primary"><a href="/friends/search">Neue Freunde suchen</a></div>
+    
     {% for score, username in friends %}
     <br>
         <p>{{username}}</p>
@@ -40,4 +43,5 @@
     <br>
         <p>{{name}}</p>
     {% endfor %}
+</div>
 {% endblock %}
