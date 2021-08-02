@@ -8,10 +8,11 @@
 {% block main %}
     Screen for Challenge History
     {%for id, first_score, second_score, first_user, second_user, date in challenges%}
-        <br>
+    <div class="entry">
         <h3>{{first_user}} vs. {{second_user}}</h3>
         <h4>{{first_score}} - {{second_score}}</h4>
         <h5> {{date}}</h5>
+    </div>
     {%endfor%}
     <a href="/challenges">Challenges</a>
 {% endblock %}
