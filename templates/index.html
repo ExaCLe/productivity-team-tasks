@@ -5,11 +5,11 @@
 {% block main %}
     <h1>Tasks</h1>
     {% for task in tasks %}
-        <div>{{task.name}}</div>
+    <div class="entry">{{task.name}}</div>
     {% endfor %}
     <h1>Incoming Friend Requests</h1>
     {% for name in incoming_friend_requests %}
-    <br>
+    <div class="entry">
         <p>{{name}}</p>
         <form action="/friends/add/accept" method="POST">
             <input type="hidden" name="username" value={{name}} > 
@@ -19,10 +19,11 @@
             <input type="hidden" name="username" value={{name}} > 
             <button type="submit">Ablehnen</button>
         </form>
+    </div>
     {% endfor %}
     <h1>Incoming Challenge Requests</h1>
     {% for name in incoming_challenge_requests %}
-    <br>
+    <div class="entry">
         <p>{{name}}</p>
         <form action="/challenges/accept" method="POST">
             <input type="hidden" name="username" value={{name}} > 
@@ -32,10 +33,11 @@
             <input type="hidden" name="username" value={{name}} > 
             <button type="submit">Ablehnen</button>
         </form>
+    </div>
     {% endfor %}
     <h1>Friends</h1>
     {% for score, username in friends %}
-    <br>
+    <div class="entry">
         <p>{{username}}</p>
         <p>{{score}}</p>
         <form method="GET" action="/profile">
@@ -46,17 +48,18 @@
             <input type="hidden" name="username_friend" value={{username}} >
             <button type="submit">View his tasks</button>
         </form>
-    <br>
+    </div>
     {% endfor %}
     <h1>Challenges</h1>
     {%for id, first_score, second_score, first_user, second_user, date in challenges%}
-    <br>
-    <h3>{{first_user}} vs. {{second_user}}</h3>
-    <h4>{{first_score}} - {{second_score}}</h4>
-    <h5> {{date}}</h5>
-    <form action="/challenges/details" method="GET">
-        <input type="hidden" name="challenge_id" value={{id}}>
-        <button type="submit">Details</button>
-    </form>
+    <div class="entry">
+        <h3>{{first_user}} vs. {{second_user}}</h3>
+        <h4>{{first_score}} - {{second_score}}</h4>
+        <h5> {{date}}</h5>
+        <form action="/challenges/details" method="GET">
+            <input type="hidden" name="challenge_id" value={{id}}>
+            <button type="submit">Details</button>
+        </form>
+    </div>
 {%endfor%}
 {% endblock %}
