@@ -12,18 +12,18 @@
 <div class="btn-primary"><a href="/friends/search">Neue Freunde suchen</a></div>
     
     {% for score, username in friends %}
-    <br>
+    <div class="entry" >
         <p>{{username}}</p>
         <p>{{score}}</p>
         <form method="GET" action="/profile">
             <input type="hidden" name="username" value={{username}} >
-            <button type="submit">View his profile</button>
+            <button class="btn-primary" type="submit">View his profile</button>
         </form>
         <form method="GET" action="/friends/teamUp">
             <input type="hidden" name="username_friend" value={{username}} >
-            <button type="submit">View his tasks</button>
+            <button type="submit" class="btn-primary">View his tasks</button>
         </form>
-    <br>
+    </div>
     {% endfor %}
     <h2>Incoming Requests</h2>
     {% for name in incoming_requests %}
@@ -40,8 +40,11 @@
     {% endfor %}
     <h2>Outgoing Requests</h2>
     {% for name in pending_requests %}
-    <br>
+    <div class="entry">
         <p>{{name}}</p>
+    </div>
+
+        
     {% endfor %}
 </div>
 {% endblock %}
