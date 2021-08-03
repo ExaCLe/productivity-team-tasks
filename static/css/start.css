@@ -139,10 +139,22 @@ a {
   text-decoration: none;
 }
 
-.entry {
+.entry3 {
   display: grid;
   grid-template-rows: 100%;
   grid-template-columns: 33% 33% 33%;
+  background-color: lightgrey;
+  padding: 15px;
+  margin: 20px;
+  border-radius: 10px;
+  border: 2px solid grey;
+  width: 100%;
+}
+
+.entry2 {
+  display: grid;
+  grid-template-rows: 100%;
+  grid-template-columns: 50% 50%;
   background-color: lightgrey;
   padding: 15px;
   margin: 20px;
