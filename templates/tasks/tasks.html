@@ -7,6 +7,11 @@
 
 {% block main %}
     <div class="container">
+        <div class="container-horizontal space-around"> 
+            <h1 class="left-align big-font">Current Tasks:</h1>
+            <div class="btn-primary"><a href="/tasks/add">Add New Task</a></div>
+        </div>
+       
         {% for task in tasks %}
             <!-- There are the following fields in every task that are helpful: name and due date -->
             <div class="entry3">
@@ -22,14 +27,11 @@
                     </form>
                     <form method="GET" action="/tasks/edit">
                         <input type="hidden" value={{task.id}} name="id">
-                        <button class="btn-text margin-lr" type="submit">Edit</button>
+                        <button class="btn-text" type="submit">Edit</button>
                     </form>
                 </div>
             </div>
         {% endfor %}
-        <br><br>
-        <div class="btn-primary"><a href="/tasks/add">Add New Task</a></div>
-        <br><br>
     </div>
     
 {% endblock %}
