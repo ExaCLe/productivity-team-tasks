@@ -3,63 +3,106 @@
 {% block title %} Dashboard {% endblock %}
 
 {% block main %}
-    <h1>Tasks</h1>
+<div class="container">
+    <div class="left-align"> <h1 >Your current Tasks: </h1></div>
     {% for task in tasks %}
-    <div class="entry">{{task.name}}</div>
-    {% endfor %}
-    <h1>Incoming Friend Requests</h1>
-    {% for name in incoming_friend_requests %}
     <div class="entry">
-        <p>{{name}}</p>
-        <form action="/friends/add/accept" method="POST">
-            <input type="hidden" name="username" value="{{name}}" > 
-            <button type="submit"  class="btn-primary">Bestätigen</button>
-        </form>
-        <form action="/friends/add/decline" method="POST">
-            <input type="hidden" name="username" value="{{name}}" > 
-            <button type="submit"  class="btn-primary">Ablehnen</button>
-        </form>
+        {{task.name}}
+        <div class="container-horizontal">
+            <p class="margin-lr">{{task.due}}</p>
+            <form method="POST" action="/tasks">
+                <input type="hidden" value={{task.id}} name="id">
+                <button class="btn-text margin-lr" type="submit">Erledigt</button>
+            </form>
+            <form method="GET" action="/tasks/edit">
+                <input type="hidden" value={{task.id}} name="id">
+                <button class="btn-text margin-lr" type="submit">Edit</button>
+            </form>
+        </div>
     </div>
     {% endfor %}
-    <h1>Incoming Challenge Requests</h1>
-    {% for name in incoming_challenge_requests %}
-    <div class="entry">
-        <p>{{name}}</p>
-        <form action="/challenges/accept" method="POST">
-            <input type="hidden" name="username" value="{{name}}" > 
-            <button type="submit" class="btn-primary">Bestätigen</button>
-        </form>
-        <form action="/challenges/decline" method="POST">
-            <input type="hidden" name="username" value="{{name}}" > 
-            <button type="submit" class="btn-primary">Ablehnen</button>
-        </form>
-    </div>
-    {% endfor %}
-    <h1>Friends</h1>
+    <a class="btn-text" href="/tasks">View All Tasks</a>
+
+
+    <div class="left-align"><h1>Friends:</h1></div>
     {% for score, username in friends %}
     <div class="entry">
         <p>{{username}}</p>
-        <p>{{score}}</p>
-        <form method="GET" action="/profile">
-            <input type="hidden" name="username" value="{{username}}">
-            <button type="submit"  class="btn-primary">View his profile</button>
-        </form>
-        <form method="GET" action="/friends/teamUp">
-            <input type="hidden" name="username_friend" value="{{username}}" >
-            <button type="submit"  class="btn-primary">View his tasks</button>
-        </form>
+        <div class="container-horizontal">
+            <p>Score: {{score}}</p>
+        </div>
+        <div class="container-horizontal">
+            <form method="GET" action="/profile">
+                <input type="hidden" name="username" value="{{username}}">
+                <button type="submit"  class="btn-text margin-lr">View his profile</button>
+            </form>
+            <form method="GET" action="/friends/teamUp">
+                <input type="hidden" name="username_friend" value="{{username}}" >
+                <button type="submit"  class="btn-text margin-lr">View his tasks</button>
+            </form>
+        </div>
     </div>
     {% endfor %}
-    <h1>Challenges</h1>
+    <a class="btn-text" href="/friends">View All Friends</a>
+
+
+    <div class="left-align"><h1>Challenges:</h1></div>
     {%for id, first_score, second_score, first_user, second_user, date in challenges%}
     <div class="entry">
-        <h3>{{first_user}} vs. {{second_user}}</h3>
-        <h4>{{first_score}} - {{second_score}}</h4>
-        <h5> {{date}}</h5>
-        <form action="/challenges/details" method="GET">
-            <input type="hidden" name="challenge_id" value={{id}}>
-            <button type="submit"  class="btn-primary">Details</button>
-        </form>
+        <div class="container-horizontal">
+            <p>{{first_user}}</p>
+            <p class="font-marker margin-lr"> vs. </p>
+            <p>{{second_user}}</p>
+        </div>
+        <p>Score: {{first_score}} : {{second_score}}</p>
+        <div class="container-horizontal">
+            <p class="margin-lr">Expires: {{date}}</p>
+            <form action="/challenges/details" method="GET">
+                <input type="hidden" name="challenge_id" value={{id}}>
+                <button type="submit"  class="btn-text">Details</button>
+            </form>
+        </div>
     </div>
-{%endfor%}
+    {%endfor%}
+    <a class="btn-text" href="/challenges">View All Challenges</a>
+
+
+    <div class="left-align"><h1>Friend Requests:</h1></div>
+    {% for name in incoming_friend_requests %}
+    <div class="entry">
+        <p>{{name}}</p>
+        <div class="container-horizontal">
+            <form action="/friends/add/accept" method="POST">
+                <input type="hidden" name="username" value="{{name}}" > 
+                <button type="submit"  class="btn-text margin-lr">Bestätigen</button>
+            </form>
+            <form action="/friends/add/decline" method="POST">
+                <input type="hidden" name="username" value="{{name}}" > 
+                <button type="submit"  class="btn-text margin-lr">Ablehnen</button>
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+    <a class="btn-text" href="/friends">View All Requests</a>
+
+
+    <div class="left-align"><h1>Challenge Requests:</h1></div>
+    {% for name in incoming_challenge_requests %}
+    <div class="entry">
+        <p>{{name}}</p>
+        <div class="container-horizontal">
+            <form action="/challenges/accept" method="POST">
+                <input type="hidden" name="username" value="{{name}}" > 
+                <button type="submit" class="btn-text margin-lr">Bestätigen</button>
+            </form>
+            <form action="/challenges/decline" method="POST">
+                <input type="hidden" name="username" value="{{name}}" > 
+                <button type="submit" class="btn-text margin-lr">Ablehnen</button>
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+    <a class="btn-text" href="/challenges">View All Challenges</a>
+    
+</div>
 {% endblock %}

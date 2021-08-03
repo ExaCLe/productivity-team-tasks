@@ -21,6 +21,11 @@
   font-family: var(--font);
 }
 
+@font-face {
+  font-family: PermanentMarker;
+  src: url(PermanentMarker-Regular.ttf);
+}
+
 body {
   text-align: center;
 }
@@ -105,6 +110,12 @@ header nav ul li a:hover:after {
   height: 100%;
 }
 
+.btn-text {
+  background-color: transparent;
+  border: none;
+  text-decoration: underline;
+}
+
 a:visited {
   color: black;
   text-decoration: none;
@@ -117,24 +128,27 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  width: 90%;
 }
 
-button:hover {
+.btn-primary:hover {
   background-color: white;
+}
+
+.btn-text:hover {
+  text-decoration: none;
 }
 
 .entry {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   background-color: lightgrey;
   padding: 15px;
   margin: 20px;
   border-radius: 10px;
   border: 2px solid grey;
-  width: 80%;
-  font-size: 1.5em;
+  width: 100%;
 }
 
 .btn-small {
@@ -145,4 +159,27 @@ button:hover {
 
 form {
   align-content: center;
+}
+
+.container-horizontal {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.left-align {
+  align-self: flex-start;
+}
+
+.margin-lr {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.font-marker {
+  font-family: PermanentMarker;
+}
+
+h1 {
+  font-size: 130%;
 }
