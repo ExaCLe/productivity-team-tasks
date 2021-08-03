@@ -7,40 +7,58 @@
 
 {% block main %}
 <div class="container">
-
-
-<div class="btn-primary"><a href="/friends/search">Neue Freunde suchen</a></div>
     
+    <div class="container-horizontal space-around"> 
+        <h1 class="left-align big-font">Current Friends:</h1>
+        <div class="btn-primary"><a href="/friends/search">Neue Freunde suchen</a></div>
+    </div>
     {% for score, username in friends %}
-    <div class="entry" >
-        <p>{{username}}</p>
-        <p>{{score}}</p>
-        <form method="GET" action="/profile">
-            <input type="hidden" name="username" value="{{username}}" >
-            <button class="btn-primary" type="submit">View his profile</button>
-        </form>
-        <form method="GET" action="/friends/teamUp">
-            <input type="hidden" name="username_friend" value="{{username}}" >
-            <button type="submit" class="btn-primary">View his tasks</button>
-        </form>
+    <div class="entry3" >
+        <div class="align-content-left"><p>{{username}}</p></div>
+        <p>Score: {{score}}</p>
+        <div class="container-horiontal align-content-right">
+            <form method="GET" action="/profile">
+                <input type="hidden" name="username" value="{{username}}" >
+                <button class="btn-text margin-lr" type="submit">View his profile</button>
+            </form>
+            <form method="GET" action="/friends/teamUp">
+                <input type="hidden" name="username_friend" value="{{username}}" >
+                <button type="submit" class="btn-text">View his tasks</button>
+            </form>
+        </div>
     </div>
     {% endfor %}
-    <h2>Incoming Requests</h2>
+
+
+    {% if incoming_requests %}
+    <div class="container-horizontal full-size"> 
+        <h1 class="left-align big-font">Incoming Requests:</h1>
+    </div>
+    {% endif %}
     {% for name in incoming_requests %}
-    <br>
-        <p>{{name}}</p>
-        <form action="/friends/add/accept" method="POST">
-            <input type="hidden" name="username" value="{{name}}" > 
-            <button type="submit">Bestätigen</button>
-        </form>
-        <form action="/friends/add/decline" method="POST">
-            <input type="hidden" name="username" value="{{name}}" > 
-            <button type="submit">Ablehnen</button>
-        </form>
+    <div class="entry2">
+        <div class="align-content-left"><p>{{name}}</p></div>
+        <div class="container-horizontal align-content-right">
+            <form action="/friends/add/accept" method="POST">
+                <input type="hidden" name="username" value="{{name}}" > 
+                <button type="submit" class="btn-text margin-lr">Bestätigen</button>
+            </form>
+            <form action="/friends/add/decline" method="POST">
+                <input type="hidden" name="username" value="{{name}}" > 
+                <button type="submit" class="btn-text">Ablehnen</button>
+            </form>
+        </div>
+    </div>
     {% endfor %}
-    <h2>Outgoing Requests</h2>
+
+    
+    {% if pending_requests %}
+    <div class="container-horizontal full-size"> 
+        <h1 class="left-align big-font">Outgoing Requests:</h1>
+    </div>
+    {% endif %}
     {% for name in pending_requests %}
-    <div class="entry">
+    <div class="entry3">
         <p>{{name}}</p>
     </div>
 

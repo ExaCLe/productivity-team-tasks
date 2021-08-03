@@ -220,5 +220,9 @@ h1 {
 .space-around {
   display: flex;
   justify-content: space-between;
-  width: 100%
+  width: 100%;
+}
+
+.full-size {
+  width: 100%;
 }
