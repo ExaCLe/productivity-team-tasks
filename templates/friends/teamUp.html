@@ -6,15 +6,31 @@
 {% endblock %}
 
 {% block main %}
-    Screen for Team Up
-    <h1>{{friend.username}}s tasks</h1>
-    {% for task in friend_tasks %}
-    <h3> {{task.name}}</h3>
-    <p>{{task.due}}</p>
-    {%endfor%}
-    <h1>Your Tasks</h1>
-    {%for task in user_tasks %}
-    <h3> {{task.name}}</h3>
-        <p>{{task.due}}</p>
-    {%endfor %}
+<div class="container">
+    <div class="two-column-grid full-size">
+        <div>
+            <div class="container-horizontal full-size margin-lr"> 
+                <h1 class="left-align big-font">{{friend.username}}s tasks:</h1>
+            </div>
+            {% for task in friend_tasks %}
+            <div class="entry2">
+                <div class="align-content-left"><p> {{task.name}}</p></div>
+                <div class="align-content-right"><p>Due: {{task.due}}</p></div> 
+            </div>
+            {%endfor%}
+        </div>
+
+        <div>
+            <div class="container-horizontal full-size margin-lr"> 
+                <h1 class="left-align big-font">Your Tasks:</h1>
+            </div> 
+            {%for task in user_tasks %}
+            <div class="entry2">
+                <div class="align-content-left"><p> {{task.name}}</p></div>
+                <div class="align-content-right"><p>Due: {{task.due}}</p></div> 
+            </div>
+            {%endfor %}
+        </div>
+    </div>
+</div>
 {% endblock %}

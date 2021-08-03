@@ -226,3 +226,9 @@ h1 {
 .full-size {
   width: 100%;
 }
+
+.two-column-grid {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  column-gap: 20px;
+}
