@@ -530,8 +530,9 @@ def friendsSearch():
     else:
         username = request.form.get("username")
         users = db.execute(
-            "SELECT * FROM users WHERE username LIKE ? AND NOT id = ?",
+            "SELECT username FROM users WHERE username LIKE ? AND NOT id = ?",
             username, session.get("user_id"))
+        print(users)
         return render_template("friends/searchResults.html", users=users)
 
 
