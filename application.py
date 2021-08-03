@@ -276,8 +276,11 @@ def profile():
         if username is None:
             username = db.execute("SELECT username FROM users WHERE id=?",
                                   session.get("user_id"))[0]["username"]
-            score = db.execute("SELECT score FROM scores WHERE user_id=?",
-                               session.get("user_id"))[0]["score"]
+            try:
+                score = db.execute("SELECT score FROM scores WHERE user_id=?",
+                                   session.get("user_id"))[0]["score"]
+            except:
+                score = "xxxx"
             return render_template("profiles/profile.html",
                                    own_profile=True,
                                    username=username,
