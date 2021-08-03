@@ -140,9 +140,9 @@ a {
 }
 
 .entry {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: grid;
+  grid-template-rows: 100%;
+  grid-template-columns: 33% 33% 33%;
   background-color: lightgrey;
   padding: 15px;
   margin: 20px;
@@ -171,6 +171,16 @@ form {
   align-self: flex-start;
 }
 
+.align-content-right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.align-content-left {
+  display: flex;
+  justify-content: flex-start;
+}
+
 .margin-lr {
   margin-right: 10px;
   margin-left: 10px;
@@ -182,4 +192,11 @@ form {
 
 h1 {
   font-size: 130%;
+}
+
+.container-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

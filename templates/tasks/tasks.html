@@ -6,24 +6,30 @@
 {% endblock %}
 
 {% block main %}
-    {% for task in tasks %}
-        <!-- There are the following fields in every task that are helpful: name and due date -->
-        <div class="entry">
-            <h3>{{task.name}}</h1>
-            <!-- Currently it is possible that there is no due date -->
-            <p>{{task.due}}</p>
-            <form method="POST" action="/tasks">
-                <input type="hidden" value={{task.id}} name="id">
-                <button class="btn-primary" type="submit">Erledigt</button>
-            </form>
-            <form method="GET" action="/tasks/edit">
-                <input type="hidden" value={{task.id}} name="id">
-                <button class="btn-primary" type="submit">Edit</button>
-            </form>
-        </div>
-    {% endfor %}
-    <br><br>
-    <div class="btn-primary"><a href="/tasks/add">Add New Task</a></div>
-    <br><br>
+    <div class="container">
+        {% for task in tasks %}
+            <!-- There are the following fields in every task that are helpful: name and due date -->
+            <div class="entry">
+                <div class="align-content-left">
+                    <p>{{task.name}}</p>
+                </div>
+                <!-- Currently it is possible that there is no due date -->
+                <p>Due: {{task.due}}</p>
+                <div class="container-horizontal align-content-right">
+                    <form method="POST" action="/tasks">
+                        <input type="hidden" value={{task.id}} name="id">
+                        <button class="btn-text margin-lr" type="submit">Erledigt</button>
+                    </form>
+                    <form method="GET" action="/tasks/edit">
+                        <input type="hidden" value={{task.id}} name="id">
+                        <button class="btn-text margin-lr" type="submit">Edit</button>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+        <br><br>
+        <div class="btn-primary"><a href="/tasks/add">Add New Task</a></div>
+        <br><br>
+    </div>
     
 {% endblock %}
