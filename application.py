@@ -53,11 +53,11 @@ def index():
     tasks = getTasks()
     return render_template(
         "index.html",
-        incoming_challenge_requests=incoming_challenge_requests,
-        incoming_friend_requests=incoming_friend_requests,
-        friends=friends,
-        challenges=challenges,
-        tasks=tasks)
+        incoming_challenge_requests=list(incoming_challenge_requests)[:2],
+        incoming_friend_requests=list(incoming_friend_requests)[:2],
+        friends=list(friends)[:2],
+        challenges=list(challenges)[:2],
+        tasks=tasks[:2])
 
 
 # Routes/Login
