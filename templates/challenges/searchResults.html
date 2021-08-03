@@ -11,7 +11,7 @@
         <div>
             <h2>{{result.username}}</h2>
             <form action="/challenges/search/results" method="POST">
-                <input type="hidden" name="username" value={{result.username}} >
+                <input type="hidden" name="username" value="{{result.username}}" >
                 <button type="submit" >Send Request</button>
             </form>
         </div>

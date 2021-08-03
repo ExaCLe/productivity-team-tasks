@@ -26,11 +26,11 @@
     <div class="entry">
         <p>{{name}}</p>
         <form action="/challenges/accept" method="POST">
-            <input type="hidden" name="username" value={{name}} > 
+            <input type="hidden" name="username" value="{{name}}" > 
             <button type="submit">Bestätigen</button>
         </form>
         <form action="/challenges/decline" method="POST">
-            <input type="hidden" name="username" value={{name}} > 
+            <input type="hidden" name="username" value="{{name}}" > 
             <button type="submit">Ablehnen</button>
         </form>
     </div>

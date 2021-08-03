@@ -87,9 +87,10 @@ def respondRequest(type, add):
             db.execute(
                 "INSERT INTO challenges(challenger_id, challenged_id, challenger_score, challenged_score, finished, expire_date) VALUES (?, ?, 0, 0, false, Date('now', '+7 days'))",
                 sender_id, user_id)
-    db.execute(
+    result = db.execute(
         "DELETE FROM requests WHERE sender_id = ? AND recipient_id = ? AND type=?",
         sender_id, user_id, type)
+    return None
 
 
 def getChallenges(history):

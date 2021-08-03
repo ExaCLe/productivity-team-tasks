@@ -16,11 +16,11 @@
         <p>{{username}}</p>
         <p>{{score}}</p>
         <form method="GET" action="/profile">
-            <input type="hidden" name="username" value={{username}} >
+            <input type="hidden" name="username" value="{{username}}" >
             <button class="btn-primary" type="submit">View his profile</button>
         </form>
         <form method="GET" action="/friends/teamUp">
-            <input type="hidden" name="username_friend" value={{username}} >
+            <input type="hidden" name="username_friend" value="{{username}}" >
             <button type="submit" class="btn-primary">View his tasks</button>
         </form>
     </div>
@@ -30,11 +30,11 @@
     <br>
         <p>{{name}}</p>
         <form action="/friends/add/accept" method="POST">
-            <input type="hidden" name="username" value={{name}} > 
+            <input type="hidden" name="username" value="{{name}}" > 
             <button type="submit">Bestätigen</button>
         </form>
         <form action="/friends/add/decline" method="POST">
-            <input type="hidden" name="username" value={{name}} > 
+            <input type="hidden" name="username" value="{{name}}" > 
             <button type="submit">Ablehnen</button>
         </form>
     {% endfor %}

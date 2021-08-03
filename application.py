@@ -445,7 +445,9 @@ def friends():
 @app.route("/friends/add/accept", methods=["POST"])
 @login_required
 def friendAccept():
-    respondRequest(0, True)
+    result = respondRequest(0, True)
+    if result:
+        return result
     return redirect("/friends")
 
 
@@ -461,7 +463,9 @@ def getId(username):
 @app.route("/friends/add/decline", methods=["POST"])
 @login_required
 def friendDecline():
-    respondRequest(0, False)
+    result = respondRequest(0, False)
+    if result:
+        return result
     return redirect("/friends")
 
 
@@ -586,7 +590,9 @@ def challenges():
 @app.route("/challenges/decline", methods=["POST"])
 @login_required
 def challengesDecline():
-    respondRequest(1, False)
+    result = respondRequest(1, False)
+    if result:
+        return result
     return redirect("/challenges")
 
 
@@ -594,7 +600,9 @@ def challengesDecline():
 @app.route("/challenges/accept", methods=["POST"])
 @login_required
 def challengesAccept():
-    respondRequest(1, True)
+    result = respondRequest(1, True)
+    if result:
+        return result
     return redirect("/challenges")
 
 

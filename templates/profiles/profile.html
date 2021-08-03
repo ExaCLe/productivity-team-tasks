@@ -14,13 +14,13 @@
     {% endif %}
     {% if friend %}
     <form method="POST" action="/friends/delete">
-        <input type="hidden" name="username" value={{username}}>
+        <input type="hidden" name="username" value="{{username}}">
         <button type="submit">Delete friend</button>
     </form>
     {% endif %}
     {% if not friend %}
     <form action="/friends/add" method="GET">
-        <input type="hidden" name="username" value={{username}} > 
+        <input type="hidden" name="username" value="{{username}}" > 
         <button type="submit" >Send friend requests</button>
     </form>
     {% endif %}
