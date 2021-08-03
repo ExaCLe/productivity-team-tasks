@@ -6,39 +6,68 @@
 {% endblock %}
 
 {% block main %}
-    Screen for Challenges Overview
+<div class="container">
+    <div class="container-horizontal space-around"> 
+        <h1 class="left-align big-font">Challenge Overview:</h1>
+        <div class="btn-primary"><a href="/challenges/search">New Challenge</a></div>
+    </div>
     {%for id, first_score, second_score, first_user, second_user, date in challenges%}
-    <div class="entry">
-        <h3>{{first_user}} vs. {{second_user}}</h3>
-        <h4>{{first_score}} - {{second_score}}</h4>
-        <h5> {{date}}</h5>
-        <form action="/challenges/details" method="GET">
-            <input type="hidden" name="challenge_id" value={{id}}>
-            <button type="submit">Details</button>
-        </form>
+    <div class="entry3">
+        <div class="container-horizontal">
+            <p>{{first_user}}</p>
+            <p class="font-marker margin-lr"> vs. </p>
+            <p>{{second_user}}</p>
+        </div>
+        <p>Score: {{first_score}} : {{second_score}}</p>
+        <div class="container-horizontal align-content-right">
+            <p class="margin-lr">Expires: {{date}}</p>
+            <form action="/challenges/details" method="GET">
+                <input type="hidden" name="challenge_id" value={{id}}>
+                <button type="submit"  class="btn-text">Details</button>
+            </form>
+        </div>
     </div>
     {%endfor%}
-    <div class="btn-primary margin"><a href="/challenges/new">Neue Challenge</a></div>
-    <div class="btn-primary margin"><a href="/challenges/history">History</a></div>
-    <div class="btn-primary margin"><a href="/challenges/search">Suchen</a></div>
-    <h2>Incoming Requests</h2>
+
+
+    {% if incoming_requests %}
+    <div class="container-horizontal full-size"> 
+        <h1 class="left-align big-font">Incoming Requests:</h1>
+    </div>
+    {% endif %}
     {% for name in incoming_requests %}
-    <div class="entry">
-        <p>{{name}}</p>
-        <form action="/challenges/accept" method="POST">
-            <input type="hidden" name="username" value="{{name}}" > 
-            <button type="submit">Bestätigen</button>
-        </form>
-        <form action="/challenges/decline" method="POST">
-            <input type="hidden" name="username" value="{{name}}" > 
-            <button type="submit">Ablehnen</button>
-        </form>
+    <div class="entry2">
+        <div class="align-content-left">
+            <p>{{name}}</p>
+        </div>
+        <div class="container-horizontal align-content-right">
+            <form action="/challenges/accept" method="POST">
+                <input type="hidden" name="username" value="{{name}}" > 
+                <button type="submit" class="btn-text margin-lr">Bestätigen</button>
+            </form>
+            <form action="/challenges/decline" method="POST">
+                <input type="hidden" name="username" value="{{name}}" > 
+                <button type="submit" class="btn-text">Ablehnen</button>
+            </form>
+        </div>
     </div>
     {% endfor %}
-    <h2>Outgoing Requests</h2>
+
+
+    {% if pending_requests %}
+    <div class="container-horizontal full-size"> 
+        <h1 class="left-align big-font">Incoming Requests:</h1>
+    </div>
+    {% endif %}
     {% for name in pending_requests %}
-    <div class="entry">
-        <p>{{name}}</p>
+    <div class="entry2">
+        <div class="align-content-left">
+            <p>{{name}}</p>
+        </div>
     </div>
     {% endfor %}
+
+    <div class="btn-primary margin"><a href="/challenges/history">View Challenge History</a></div>
+    <div class="btn-primary margin"><a href="/challenges/new">Neue Challenge</a></div>
+</div>
 {% endblock %}
