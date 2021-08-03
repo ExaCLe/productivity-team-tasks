@@ -2,29 +2,29 @@
 
 - [ ] Header Responsive machen
 - [ ] Footer erstellen
-- [ ] Entry erstellen
-  - [ ] Task
-  - [ ] Open Challenge
-  - [ ] Friends
-  - [ ] Requests
-- [ ] Buttons erstellen
-  - [ ] Primary
-  - [ ] Text
+- [x] Entry erstellen
+  - [x] Task
+  - [x] Open Challenge
+  - [x] Friends
+  - [x] Requests
+- [x] Buttons erstellen
+  - [x] Primary
+  - [x] Text
 - [ ] TextInput erstellen
 - [ ] Screens designen
-  - [ ] Dashboard
+  - [x] Dashboard
   - [ ] Login
   - [ ] Register
-  - [ ] Tasklist
-  - [ ] Team-Up
-  - [ ] Challenge
+  - [x] Tasklist
+  - [x] Team-Up
+  - [x] Challenge
   - [ ] Challenge-History
   - [ ] Add/Edit Task
   - [ ] Searches
   - [ ] Results of the searches
   - [ ] Profile
   - [ ] Edit Profile
-  - [ ] Challenge Overview
+  - [x] Challenge Overview
   - [ ] Accept Challenge ?
   - [ ] Challenge Details
   - [ ] Scoreboard
