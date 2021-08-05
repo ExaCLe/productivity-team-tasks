@@ -4,6 +4,7 @@
 
 {% block main %}
 <div class="container">
+    {%if tasks %}
     <div class="left-align"> <h1 >Your current Tasks: </h1></div>
     {% for task in tasks %}
     <div class="entry2">
@@ -24,8 +25,9 @@
     </div>
     {% endfor %}
     <a class="btn-text" href="/tasks">View All Tasks</a>
+    {% endif %}
 
-
+    {%if friends %}
     <div class="left-align"><h1>Friends:</h1></div>
     {% for score, username in friends %}
     <div class="entry3">
@@ -46,8 +48,9 @@
     </div>
     {% endfor %}
     <a class="btn-text" href="/friends">View All Friends</a>
+    {% endif %} 
 
-
+    {%if challenges %}
     <div class="left-align"><h1>Challenges:</h1></div>
     {%for id, first_score, second_score, first_user, second_user, date in challenges%}
     <div class="entry3">
@@ -67,8 +70,10 @@
     </div>
     {%endfor%}
     <a class="btn-text" href="/challenges">View All Challenges</a>
+    {% endif %}
 
 
+    {%if incoming_friend_requests %}
     <div class="left-align"><h1>Friend Requests:</h1></div>
     {% for name in incoming_friend_requests %}
     <div class="entry2">
@@ -88,8 +93,10 @@
     </div>
     {% endfor %}
     <a class="btn-text" href="/friends">View All Requests</a>
+    {% endif %}
 
 
+    {%if incoming_challenge_requests %}
     <div class="left-align"><h1>Challenge Requests:</h1></div>
     {% for name in incoming_challenge_requests %}
     <div class="entry2">
@@ -109,6 +116,7 @@
     </div>
     {% endfor %}
     <a class="btn-text" href="/challenges">View All Challenges</a>
+    {% endif %}
     
 </div>
 {% endblock %}
