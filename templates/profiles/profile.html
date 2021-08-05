@@ -24,7 +24,7 @@
     </form>
     {% endif %}
 
-    {% if not friend %}
+    {% if not friend and not own_profile %}
     <form action="/friends/add" method="GET" class="form">
         <input type="hidden" name="username" value="{{username}}" > 
         <button type="submit" class="btn-primary half-size" >Send friend requests</button>
