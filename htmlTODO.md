@@ -17,7 +17,7 @@
   - [x] Tasklist
   - [x] Team-Up
   - [x] Challenge
-  - [ ] Challenge-History
+  - [x] Challenge-History
   - [x] Add/Edit Task
   - [x] Searches
   - [x] Results of the searches
