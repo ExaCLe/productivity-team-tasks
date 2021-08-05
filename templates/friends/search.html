@@ -6,8 +6,10 @@
 {% endblock %}
 
 {% block main %}
-    <form action="/friends/search" method="POST" class="flex">
-        <input placeholder="Username" name="username" type="text" class="textfield margin padding">
-        <button type="submit" class="btn-primary padding">Suchen</button>
+    <form action="/friends/search" method="POST" class="form">
+        <div class="textfield">
+            <input placeholder="Username" name="username" type="text">
+        </div>
+        <button type="submit" id="login-btn" class="btn-primary">Suchen</button>
     </form>
 {% endblock %}

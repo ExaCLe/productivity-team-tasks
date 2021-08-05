@@ -6,9 +6,10 @@
 {% endblock %}
 
 {% block main %}
-    Screen for Search Challenges
-    <form action="/challenges/search/results" method="GET">
-        <input type="text" name="username" placeholder="Username">
-        <button type="submit">Suchen</button>
+    <form action="/challenges/search/results" method="GET" class="form">
+        <div class="textfield">
+            <input type="text" name="username" placeholder="Username">
+        </div>
+        <button class="btn-primary" id="login-btn" type="submit">Suchen</button>
     </form>
 {% endblock %}

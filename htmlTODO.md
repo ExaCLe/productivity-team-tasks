@@ -20,7 +20,7 @@
   - [x] Challenge
   - [ ] Challenge-History
   - [x] Add/Edit Task
-  - [ ] Searches
+  - [x] Searches
   - [ ] Results of the searches
   - [ ] Profile
   - [ ] Edit Profile
