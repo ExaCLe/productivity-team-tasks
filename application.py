@@ -659,8 +659,8 @@ def challengesSearch():
     return render_template("challenges/search.html")
 
 
-# Routes/Challenges/Search/Results
-@app.route("/challenges/search/results", methods=["GET", "POST"])
+# Routes/Challenges/SearchResults
+@app.route("/challenges/searchResults", methods=["GET", "POST"])
 @login_required
 def challengesResults():
     if request.method == "GET":
