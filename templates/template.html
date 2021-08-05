@@ -5,22 +5,33 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <link rel="stylesheet" href="../static/css/start.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="../static/growth.png" rel="icon">
         <title>{% block title %}{% endblock %}</title>
     </head>
 
     <body>
         <header class="header">
-            <nav>
-                <h1 class="title">EXAC</h1>
-                <ul>
-                    <li><a href="/">Dashboard</a></li>
-                    <li><a href="/tasks">Tasks</a></li>
-                    <li><a href="/friends">Friends</a></li>
-                    <li><a href="/challenges">Challenges</a></li>
-                    <li><a href="/profile">Profile</a></li>
-                    <li><a href="/scoreboard/monthly">Scoreboard</a></li>
-                </ul>
+            <nav id="myTopnav" class="topnav">
+                <div class="mobile-nav">
+                    <h1 class="title">EXAC</h1>
+                <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                  </a>
+                </div>
+                
+                <div id="container-header">
+                    <a class="li" href="/"><p>Dashboard</p></a>
+                    <a class="li" href="/tasks"><p>Tasks</p></a>
+                    <a class="li" href="/friends"><p>Friends</p></a>
+                    <a class="li" href="/challenges"><p>Challenges</p></a>
+                    <a class="li" href="/profile"><p>Profile</p></a>
+                    <a class="li" href="/scoreboard/monthly"><p>Scoreboard</p></a>
+                </div>
+                   
+                
                 <div class="line"></div>
             </nav>
         </header>
@@ -32,4 +43,14 @@
 
     </body>
 
+    <script>
+        function myFunction() {
+          var x = document.getElementById("myTopnav");
+          if (x.className === "topnav") {
+            x.className += " responsive";
+          } else {
+            x.className = "topnav";
+          }
+        }
+    </script>
 </html>

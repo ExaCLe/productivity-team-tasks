@@ -50,13 +50,19 @@ header nav {
   text-align: center;
 }
 
-header nav ul li {
+header nav p.li {
   display: inline-block;
   padding: 1rem 6rem;
   font-weight: var(--font-p);
 }
 
-header nav ul li a {
+#container-header {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+header nav p {
   position: relative;
   display: inline-block;
   text-decoration: none;
@@ -64,7 +70,7 @@ header nav ul li a {
   text-transform: uppercase;
 }
 
-header nav ul li a:after {
+header nav p:after {
   background: none repeat scroll 0 0 transparent;
   bottom: 0;
   content: "";
@@ -77,7 +83,7 @@ header nav ul li a:after {
   width: 0;
 }
 
-header nav ul li a:hover:after {
+header nav p:hover:after {
   width: 100%;
   left: 0;
 }
@@ -285,6 +291,63 @@ h1 {
   background-color: black;
   height: 3px;
   width: 100%;
+}
+
+.bar {
+  width: 35px;
+  height: 5px;
+  background-color: black;
+  margin: 6px 0;
+}
+
+nav .icon {
+  display: none;
+  text-decoration: none;
+}
+
+header nav a.icon :after {
+  display: none;
+}
+
+@media (max-width: 1100px) {
+  .topnav div a {
+    display: none;
+  }
+  .topnav a.icon {
+    display: inline;
+    position: absolute;
+    right: 10px;
+    top: 30px;
+  }
+  #container-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+  }
+  .topnav.responsive a {
+    float: none;
+    display: block;
+    text-align: left;
+    margin-bottom: 10px;
+  }
+  nav h1 {
+    width: 40%;
+  }
+
+  nav h1 {
+    align-self: flex-end;
+  }
+
+  nav .responsive {
+    position: relative;
+  }
+  nav .responsive h1 {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
 }
 
 @media (max-width: 576px) {
