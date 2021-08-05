@@ -6,9 +6,21 @@
 {% endblock %}
 
 {% block main %}
-    Screen for Challenge Details
-    <br>
-        <h3>{{first_user}} vs. {{second_user}}</h3>
-        <h4>{{first_score}} - {{second_score}}</h4>
-        <h5> {{date}}</h5>
+<div class="grid3 margin" style="width: 80%">
+    <div class="background padding">
+        <p class="big-font">{{first_user}}</p>
+        <p class="btn-font">{{first_score}}</p>
+    </div>
+    
+    <div style="justify-content: center;" class="flex">
+        <p class="font-marker margin-lr big-font"> vs. </p> 
+    </div>
+    
+    <div class="background padding">
+        <p class="big-font">{{second_user}}</p>
+        <p class="btn-font">{{second_score}}</p>
+    </div>
+    
+</div>
+    <p class="margin">Expires: {{date}}</h5>
 {% endblock %}

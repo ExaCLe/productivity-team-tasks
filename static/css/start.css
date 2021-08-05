@@ -269,3 +269,13 @@ h1 {
 .half-size {
   width: 50%;
 }
+
+.grid3 {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+}
+
+.background {
+  background-color: lightgrey;
+  border-radius: 10px;
+}

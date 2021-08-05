@@ -25,5 +25,5 @@
   - [x] Profile
   - [x] Edit Profile
   - [x] Challenge Overview#
-  - [ ] Challenge Details
+  - [x] Challenge Details
   - [ ] Scoreboard
