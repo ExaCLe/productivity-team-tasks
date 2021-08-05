@@ -9,7 +9,7 @@
 <div class="container">
     <div class="container-horizontal space-around"> 
         <h1 class="left-align big-font">Challenge Overview:</h1>
-        <div class="btn-primary"><a href="/challenges/search">New Challenge</a></div>
+        <a class="btn-primary" href="/challenges/search">New Challenge</a>
     </div>
     {%for id, first_score, second_score, first_user, second_user, date in challenges%}
     <div class="entry3">
@@ -67,7 +67,7 @@
     </div>
     {% endfor %}
 
-    <div class="btn-primary margin"><a href="/challenges/history">View Challenge History</a></div>
-    <div class="btn-primary margin"><a href="/challenges/new">Neue Challenge</a></div>
+    <a class="btn-primary margin half-size" href="/challenges/history">View Challenge History</a>
+    <a class="btn-primary half-size" href="/challenges/new">Neue Challenge</a>
 </div>
 {% endblock %}
