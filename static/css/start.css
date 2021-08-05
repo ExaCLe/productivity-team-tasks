@@ -309,6 +309,16 @@ header nav a.icon :after {
   display: none;
 }
 
+footer {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: lightgrey;
+  padding-bottom: 200px;
+}
+
 @media (max-width: 1100px) {
   .topnav div a {
     display: none;
