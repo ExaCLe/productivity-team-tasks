@@ -6,14 +6,19 @@
 {% endblock %}
 
 {% block main %}
-    Screen for Edit Task
     {% if message %}
         <p>{{message}}</p>
     {% endif %}
-    <form method="post" action="/tasks/edit">
-        <input type="text" placeholder="Name" name="name" autofocus autocomplete="off" value="{{task.name}}">
-        <input type="date" name="due" placeholder="Fälligkeitsdatum" value="{{task.due}}">
-        <input type="hidden" name="id" value={{task.id}}>
-        <button type="submit">Edit Task</button>
+    <form method="post" action="/tasks/edit" class="form">
+        <div class="textfield">
+            <input type="text" placeholder="Name" name="name" autofocus autocomplete="off" value="{{task.name}}">
+        </div>
+        <div class="textfield">
+            <input type="date" name="due" placeholder="Fälligkeitsdatum" value="{{task.due}}">
+        </div>
+        <div class="textfield">
+            <input type="hidden" name="id" value={{task.id}}>
+        </div>
+        <button class="btn-primary" id="login-btn" type="submit">Edit Task</button>
     </form>
 {% endblock %}

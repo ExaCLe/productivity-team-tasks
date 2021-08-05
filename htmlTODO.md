@@ -10,7 +10,7 @@
 - [x] Buttons erstellen
   - [x] Primary
   - [x] Text
-- [ ] TextInput erstellen
+- [x] TextInput erstellen
 - [ ] Screens designen
   - [x] Dashboard
   - [x] Login
@@ -19,7 +19,7 @@
   - [x] Team-Up
   - [x] Challenge
   - [ ] Challenge-History
-  - [ ] Add/Edit Task
+  - [x] Add/Edit Task
   - [ ] Searches
   - [ ] Results of the searches
   - [ ] Profile

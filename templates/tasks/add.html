@@ -6,13 +6,16 @@
 {% endblock %}
 
 {% block main %}
-    Screen for Add Task
     {% if message %}
         <p>{{message}}</p>
     {% endif %}
-    <form method="post" action="/tasks/add">
-        <input type="text" placeholder="Name" name="name" autofocus autocomplete="off">
-        <input type="date" name="due" placeholder="Fälligkeitsdatum">
-        <button type="submit">Add Task</button>
+    <form method="post" action="/tasks/add" class="form">
+        <div class="textfield">
+            <input type="text" placeholder="Name" name="name" autofocus autocomplete="off">
+        </div>
+        <div class="textfield">
+            <input type="date" name="due" placeholder="Fälligkeitsdatum">
+        </div>
+        <button class="btn-primary" id="login-btn" type="submit">Add Task</button>
     </form>
 {% endblock %}
