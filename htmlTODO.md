@@ -23,8 +23,7 @@
   - [x] Searches
   - [x] Results of the searches
   - [x] Profile
-  - [ ] Edit Profile
-  - [x] Challenge Overview
-  - [ ] Accept Challenge ?
+  - [x] Edit Profile
+  - [x] Challenge Overview#
   - [ ] Challenge Details
   - [ ] Scoreboard
