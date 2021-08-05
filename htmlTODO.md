@@ -13,8 +13,8 @@
 - [ ] TextInput erstellen
 - [ ] Screens designen
   - [x] Dashboard
-  - [ ] Login
-  - [ ] Register
+  - [x] Login
+  - [x] Register
   - [x] Tasklist
   - [x] Team-Up
   - [x] Challenge

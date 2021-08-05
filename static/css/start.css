@@ -169,8 +169,13 @@ a {
   padding: 10px 5px 10px 5px;
 }
 
-form {
-  align-content: center;
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .container-horizontal {
@@ -217,6 +222,10 @@ h1 {
   font-size: 2em;
 }
 
+.extra-big-font {
+  font-size: 5em;
+}
+
 .space-around {
   display: flex;
   justify-content: space-between;
@@ -231,4 +240,20 @@ h1 {
   display: grid;
   grid-template-columns: 50% 50%;
   column-gap: 20px;
+}
+
+.textfield input {
+  margin-bottom: 10px;
+  font-size: 1.5em;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 100%;
+  border-radius: 10px;
+}
+
+#login-btn {
+  font-size: 1.5em;
+  width: 50%;
 }
