@@ -21,7 +21,7 @@
   - [ ] Challenge-History
   - [x] Add/Edit Task
   - [x] Searches
-  - [ ] Results of the searches
+  - [x] Results of the searches
   - [ ] Profile
   - [ ] Edit Profile
   - [x] Challenge Overview

@@ -6,15 +6,21 @@
 {% endblock %}
 
 {% block main %}
+<div class="container" >
     {% for user in users %}
-    <div class="entry">
-        <p>{{user.username}}</p>
-    <form action="/friends/add" method="GET" >
-        <input type="hidden" name="username" value="{{user.username}}" > 
-        <button type="submit" class="btn-small" >Hinzufügen</button>
+    <div class="entry2">
+        <div class="align-content-left">
+            <p>{{user.username}}</p>
+        </div>
+        <div class="align-content-right">
+            <form action="/friends/add" method="GET" >
+                <input type="hidden" name="username" value="{{user.username}}" > 
+                <button type="submit" class="btn-small" >Hinzufügen</button>
+            </form>
+        </div>
     </div>
-    
-    </form>
 
     {% endfor %}
+</div>
+    
 {% endblock %}

@@ -193,11 +193,13 @@ a {
 .align-content-right {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
 }
 
 .align-content-left {
   display: flex;
   justify-content: flex-start;
+  align-items: center;
 }
 
 .margin-lr {
@@ -258,6 +260,10 @@ h1 {
 #login-btn {
   font-size: 1.5em;
   width: 50%;
+}
+
+.btn-font {
+  font-size: 1.5em;
 }
 
 .half-size {
