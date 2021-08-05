@@ -22,7 +22,7 @@
   - [x] Add/Edit Task
   - [x] Searches
   - [x] Results of the searches
-  - [ ] Profile
+  - [x] Profile
   - [ ] Edit Profile
   - [x] Challenge Overview
   - [ ] Accept Challenge ?
