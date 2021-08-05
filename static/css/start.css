@@ -19,6 +19,7 @@
   box-sizing: border-box;
   scroll-behavior: smooth;
   font-family: var(--font);
+  font-size: 16px;
 }
 
 @font-face {
@@ -279,4 +280,45 @@ h1 {
 .background {
   background-color: lightgrey;
   border-radius: 10px;
+}
+
+@media (max-width: 576px) {
+  * {
+    font-size: 16px;
+  }
+
+  .entry3 {
+    grid-template-columns: 100%;
+    grid-template-rows: 33% 33% 33%;
+  }
+  .entry2 {
+    grid-template-columns: 100%;
+    grid-template-rows: 50% 50%;
+  }
+  .align-content-left {
+    justify-content: center;
+  }
+  .align-content-right {
+    justify-content: center;
+  }
+  .big-font {
+    font-size: 1.5em;
+  }
+  .container-horizontal {
+    flex-direction: column;
+  }
+  .left-align {
+    align-self: center;
+  }
+  .half-size {
+    width: 80%;
+  }
+  .container-horizontal-mobile {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .mobile-center {
+    justify-content: center;
+  }
 }
