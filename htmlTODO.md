@@ -1,6 +1,5 @@
 # ToDo Liste Design / Front-End
 
-- [ ] Header Responsive machen
 - [ ] Footer erstellen
 - [x] Entry erstellen
   - [x] Task
@@ -27,3 +26,5 @@
   - [x] Challenge Overview#
   - [x] Challenge Details
   - [ ] Scoreboard
+- [ ] Responsive machen
+  - [ ] Header
