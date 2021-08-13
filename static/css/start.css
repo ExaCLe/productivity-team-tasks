@@ -121,6 +121,7 @@ header nav p:hover:after {
 .btn-text {
   background-color: transparent;
   border: none;
+  text-decoration: underline;
   color: black;
 }
 
@@ -237,6 +238,7 @@ h1 {
 
 .extra-big-font {
   font-size: 5em;
+  font-weight: 400;
 }
 
 .space-around {
