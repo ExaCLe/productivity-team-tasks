@@ -7,15 +7,47 @@
 
 {% block main %}
     <p class="big-font">{{username}}</p>
+    <img class="profile-pic" src="../../static/images/416-4161690_empty-profile-picture-blank-avatar-image-circle.png" alt="picture">
     <p class="btn-font">Score: {{score}}</p>
+    <table id="q-graph">
+        <tbody>
+            <tr class="qtr" id="q1">
+                <th scope="row">work</th>
+                <td class="sent bar" style="height: 111px; background-color:lightseagreen; border-radius: 10px 10px 0 0;"><p>xxxxx</p></td>
+            </tr>
+            <tr class="qtr" id="q2">
+                <th scope="row">housekeeping</th>
+                <td class="sent bar" style="height: 76px; background-color:lightpink; border-radius: 10px 10px 0 0;"><p>xxxxx</p></td>
+                
+            </tr>
+            <tr class="qtr" id="q3">
+                <th scope="row">sport</th>
+                <td class="sent bar" style="height: 210px; background-color: lightgreen; border-radius: 10px 10px 0 0;"><p>xxxxx</p></td>
+             
+            </tr>
+            <tr class="qtr" id="q4">
+                <th scope="row">education</th>
+                <td class="sent bar" style="height: 110px; background-color: lightcoral; border-radius: 10px 10px 0 0;"><p>xxxxx</p></td>
+               
+            </tr>
+        </tbody>
+    </table>
+        <div id="ticks">
+            <div class="tick" style="height: 59px;"><p>5000</p></div>
+            <div class="tick" style="height: 59px;"><p>4000</p></div>
+            <div class="tick" style="height: 59px;"><p>3000</p></div>
+            <div class="tick" style="height: 59px;"><p>2000</p></div>
+            <div class="tick" style="height: 59px;"><p>1000</p></div>
+        </div>
+        
     {%if own_profile%}
-        <a class="btn-primary half-size" href="/profile/edit">Edit</a>
+        <a class="btn-primary half-size" style="margin: 3rem 0 0 0;" href="/profile/edit">Edit</a>
     {% endif %}
 
     {% if friend %}
     <form method="GET" action="/friends/teamUp" class="form">
         <input type="hidden" name="username_friend" value="{{username}}" >
-        <button type="submit" class="btn-primary half-size">View his tasks</button>
+        <button type="submit" class="btn-primary half-size" style="margin: 2rem 0 0 0;">View his tasks</button>
     </form>
 
     <form method="POST" action="/friends/delete" class="form">
