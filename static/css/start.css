@@ -1,10 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
 :root {
-  --clr-first: #000;
+  --clr-first: #fff;
   --clr-second: #fff;
   --clr-third: rgb(206, 102, 102);
   --clr-fourth: rgb(53, 132, 197);
+  --clr-btn-primary-border: #b6174b;
+  --clr-btn-primary: #b6174b;
+  --clr-entry: #b6174b;
+  --clr-entry-border: #b6174b;
+  --clr-background: #00e0d1;
+  --clr-footer: #b6174b;
+  --clr-header-font: #b6174b;
 
   --font: "Poppins";
 
@@ -20,6 +27,7 @@
   scroll-behavior: smooth;
   font-family: var(--font);
   font-size: 16px;
+  color: var(--clr-first);
 }
 
 @font-face {
@@ -29,6 +37,7 @@
 
 body {
   text-align: center;
+  background-color: var(--clr-background);
 }
 
 header {
@@ -44,6 +53,7 @@ header h1 {
   letter-spacing: 0.3rem;
   text-align: center;
   justify-content: center;
+  color: var(--clr-header-font);
 }
 
 header nav {
@@ -66,7 +76,7 @@ header nav p {
   position: relative;
   display: inline-block;
   text-decoration: none;
-  color: var(--clr-first);
+  color: var(--clr-header-font);
   text-transform: uppercase;
 }
 
@@ -78,7 +88,7 @@ header nav p:after {
   height: 2px;
   left: 50%;
   position: absolute;
-  background: var(--clr-first);
+  background: var(--clr-header-font);
   transition: width 0.3s ease 0s, left 0.3s ease 0s;
   width: 0;
 }
@@ -112,8 +122,8 @@ header nav p:hover:after {
   padding: 10px 5px 10px 5px;
   border-radius: 10px;
   text-decoration: none;
-  border: 2px solid rgb(124, 124, 124);
-  background-color: #b3b3b3;
+  border: 2px solid var(--clr-btn-primary-border);
+  background-color: var(--clr-btn-primary);
   color: white;
   height: 100%;
 }
@@ -122,11 +132,12 @@ header nav p:hover:after {
   background-color: transparent;
   border: none;
   text-decoration: underline;
-  color: black;
+  color: var(--clr-first);
 }
 
 a:visited {
   text-decoration: none;
+  color: var(--clr-first);
 }
 a {
   text-decoration: none;
@@ -153,11 +164,11 @@ a {
 .entry {
   position: relative;
   display: grid;
-  background-color: lightgrey;
+  background-color: var(--clr-entry);
   padding: 15px;
   margin: 20px;
   border-radius: 10px;
-  border: 2px solid grey;
+  border: 2px solid var(--clr-entry-border);
   width: 100%;
   box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.2);
 }
@@ -444,11 +455,11 @@ View Compiled .half-size {
 }
 
 .background {
-  background-color: lightgrey;
+  background-color: var(--clr-background);
   border-radius: 10px;
 }
 .line {
-  background-color: black;
+  background-color: var(--clr-header-font);
   height: 3px;
   width: 100%;
 }
@@ -475,7 +486,7 @@ footer {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  background-color: lightgrey;
+  background-color: var(--clr-footer);
   padding-bottom: 200px;
 }
 
