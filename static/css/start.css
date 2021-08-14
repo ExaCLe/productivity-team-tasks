@@ -150,28 +150,46 @@ a {
   color: rgb(29, 58, 153);
 }
 
-.entry3 {
+.entry {
+  position: relative;
   display: grid;
-  grid-template-rows: 100%;
-  grid-template-columns: 33% 33% 33%;
   background-color: lightgrey;
   padding: 15px;
   margin: 20px;
   border-radius: 10px;
   border: 2px solid grey;
   width: 100%;
+  box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.2);
+}
+
+.entry:hover {
+  animation-name: test;
+  animation-duration: 50ms;
+  animation-direction: normal;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+}
+
+@keyframes test {
+  0% {
+    left: 0px;
+    top: 0px;
+  }
+  100% {
+    left: 5px;
+    top: 5px;
+    box-shadow: none;
+  }
+}
+
+.entry3 {
+  grid-template-rows: 100%;
+  grid-template-columns: 33% 33% 33%;
 }
 
 .entry2 {
-  display: grid;
   grid-template-rows: 100%;
   grid-template-columns: 50% 50%;
-  background-color: lightgrey;
-  padding: 15px;
-  margin: 20px;
-  border-radius: 10px;
-  border: 2px solid grey;
-  width: 100%;
 }
 
 .btn-small {
