@@ -7,7 +7,7 @@
     {%if tasks %}
     <div class="left-align"> <h1 >Your current Tasks: </h1></div>
     {% for task in tasks %}
-    <div class="entry2 entry">
+    <div class="entry entry2">
         <div class="align-content-left">
             {{task.name}}
         </div>
@@ -30,7 +30,7 @@
     {%if friends %}
     <div class="left-align"><h1>Friends:</h1></div>
     {% for score, username in friends %}
-    <div class="entry3 entry">
+    <div class="entry entry3">
         <div class="align-content-left">
             <p>{{username}}</p>
         </div>
@@ -53,7 +53,7 @@
     {%if challenges %}
     <div class="left-align"><h1>Challenges:</h1></div>
     {%for id, first_score, second_score, first_user, second_user, date in challenges%}
-    <div class="entry3 entry">
+    <div class="entry entry3">
         <div class="container-horizontal container-horizontal-mobile mobile-center">
             <p>{{first_user}}</p>
             <p class="font-marker margin-lr"> vs. </p>
@@ -76,7 +76,7 @@
     {%if incoming_friend_requests %}
     <div class="left-align"><h1>Friend Requests:</h1></div>
     {% for name in incoming_friend_requests %}
-    <div class="entry2 entry">
+    <div class="entry entry2">
         <div class="align-content-left">
             <p>{{name}}</p>
         </div>
@@ -99,7 +99,7 @@
     {%if incoming_challenge_requests %}
     <div class="left-align"><h1>Challenge Requests:</h1></div>
     {% for name in incoming_challenge_requests %}
-    <div class="entry2 entry">
+    <div class="entry entry2">
         <div class="align-content-left">
             <p>{{name}}</p>
         </div>  

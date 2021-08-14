@@ -12,7 +12,7 @@
         <a class="btn-primary" href="/challenges/search">New Challenge</a>
     </div>
     {%for id, first_score, second_score, first_user, second_user, date in challenges%}
-    <div class="entry3">
+    <div class="entry3 entry">
         <div class="container-horizontal container-horizontal-mobile mobile-center">
             <p>{{first_user}}</p>
             <p class="font-marker margin-lr"> vs. </p>
@@ -36,7 +36,7 @@
     </div>
     {% endif %}
     {% for name in incoming_requests %}
-    <div class="entry2">
+    <div class="entry2 entry">
         <div class="align-content-left">
             <p>{{name}}</p>
         </div>
@@ -60,7 +60,7 @@
     </div>
     {% endif %}
     {% for name in pending_requests %}
-    <div class="entry2">
+    <div class="entry2 entry">
         <div class="align-content-left">
             <p>{{name}}</p>
         </div>

@@ -13,7 +13,7 @@
         <a class="btn-primary" href="/friends/search">Neue Freunde suchen</a>
     </div>
     {% for score, username in friends %}
-    <div class="entry3" >
+    <div class="entry3 entry" >
         <div class="align-content-left"><p>{{username}}</p></div>
         <p>Score: {{score}}</p>
         <div class="container-horiontal align-content-right">
@@ -36,7 +36,7 @@
     </div>
     {% endif %}
     {% for name in incoming_requests %}
-    <div class="entry2">
+    <div class="entry2 entry">
         <div class="align-content-left"><p>{{name}}</p></div>
         <div class="container-horizontal align-content-right">
             <form action="/friends/add/accept" method="POST">
@@ -58,7 +58,7 @@
     </div>
     {% endif %}
     {% for name in pending_requests %}
-    <div class="entry2">
+    <div class="entry2 entry">
         <div class="align-content-left">   
             <p>{{name}}</p>
         </div>
