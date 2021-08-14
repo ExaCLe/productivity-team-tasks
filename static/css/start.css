@@ -157,8 +157,33 @@ a {
 }
 
 .btn-text:hover {
-  text-decoration: underline;
-  color: rgb(29, 58, 153);
+  text-decoration: none;
+  /* color: rgb(29, 58, 153); */
+}
+
+.check {
+  transform: scale(1.5);
+}
+
+.check:hover {
+  animation: 200ms linear 0s 1 normal forwards running scale-check;
+}
+
+@keyframes scale-check {
+  0% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(2.5);
+  }
+}
+
+form .entry {
+  margin: 20px 0px;
+}
+
+form .entry * {
+  cursor: pointer;
 }
 
 .entry {
@@ -171,6 +196,10 @@ a {
   border: 2px solid var(--clr-entry-border);
   width: 100%;
   box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.2);
+}
+
+.entry button {
+  text-decoration: none;
 }
 
 .entry:hover {
