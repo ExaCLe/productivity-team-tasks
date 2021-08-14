@@ -180,6 +180,7 @@ a {
 
 form .entry {
   margin: 20px 0px;
+  cursor: pointer;
 }
 
 form .entry * {
@@ -282,6 +283,11 @@ form .entry * {
 h1 {
   font-size: 130%;
   font-weight: 500;
+  color: var(--clr-header-font);
+}
+
+main > div > .btn-text {
+  color: var(--clr-header-font);
 }
 
 .container-main {
