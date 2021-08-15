@@ -10,7 +10,7 @@
     
     <div class="container-horizontal space-around"> 
         <h1 class="left-align big-font">Current Friends:</h1>
-        <a class="btn-primary" href="/friends/search">Neue Freunde suchen</a>
+        <a class="btn-primary" href="/friends/search"><p class="underline" >Neue Freunde suchen</p></a>
     </div>
     {% for score, username in friends %}
     <form method="GET" action="/friends/teamUp" style="width: 100%" id="friend{{username}}">

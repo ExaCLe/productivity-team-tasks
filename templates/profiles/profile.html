@@ -41,25 +41,25 @@
         </div>
         
     {%if own_profile%}
-        <a class="btn-primary half-size" style="margin: 3rem 0 0 0;" href="/profile/edit">Edit</a>
+        <a class="btn-primary half-size" style="margin: 3rem 0 0 0;" href="/profile/edit"><p class="underline" >Edit</p></a>
     {% endif %}
 
     {% if friend %}
     <form method="GET" action="/friends/teamUp" class="form">
         <input type="hidden" name="username_friend" value="{{username}}" >
-        <button type="submit" class="btn-primary half-size" style="margin: 2rem 0 0 0;">View his tasks</button>
+        <button type="submit" class="btn-primary half-size" style="margin: 2rem 0 0 0;"><p class="underline" >View his tasks</p></button>
     </form>
 
     <form method="POST" action="/friends/delete" class="form">
         <input type="hidden" name="username" value="{{username}}">
-        <button type="submit" class="btn-text half-size">Delete friend</button>
+        <button type="submit" class="btn-text half-size"><p class="underline primary-color">Delete friend</p></button>
     </form>
     {% endif %}
 
     {% if not friend and not own_profile %}
     <form action="/friends/add" method="GET" class="form">
         <input type="hidden" name="username" value="{{username}}" > 
-        <button type="submit" class="btn-primary half-size" >Send friend requests</button>
+        <button type="submit" class="btn-primary half-size" ><p class="underline" >Send friend requests</p></button>
     </form>
     {% endif %}
 {% endblock %}

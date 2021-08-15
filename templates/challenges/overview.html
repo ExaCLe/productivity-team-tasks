@@ -9,7 +9,7 @@
 <div class="container">
     <div class="container-horizontal space-around "> 
         <h1 class="left-align big-font">Challenge Overview:</h1>
-        <a class="btn-primary" href="/challenges/search">New Challenge</a>
+        <a class="btn-primary" href="/challenges/search"><p class="underline" >New Challenge</p></a>
     </div>
     {%for id, first_score, second_score, first_user, second_user, date in challenges%}
     <form action="/challenges/details" method="GET" id='{{first_user}}{{second_user}}{{date}}{{id}}'  style="width: 100%;">
@@ -76,7 +76,7 @@
     </form>
     {% endfor %}
 
-    <a class="btn-primary margin half-size" href="/challenges/history">View Challenge History</a>
-    <a class="btn-primary half-size" href="/challenges/new">Neue Challenge</a>
+    <a class="btn-primary margin half-size" href="/challenges/history"><p class="underline">View Challenge History</p></a>
+    <a class="btn-primary half-size" href="/challenges/new"><p class="underline">Neue Challenge</p></a>
 </div>
 {% endblock %}

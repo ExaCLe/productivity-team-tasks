@@ -125,7 +125,16 @@ header nav p:hover:after {
   border: 2px solid var(--clr-btn-primary-border);
   background-color: var(--clr-btn-primary);
   color: white;
+  position: relative;
   height: 100%;
+  box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary:hover {
+  transition: left 50ms, top 50ms;
+  left: 5px;
+  top: 5px;
+  box-shadow: none;
 }
 
 #red {
@@ -152,12 +161,6 @@ a {
   flex-direction: column;
   align-items: center;
   width: 90%;
-}
-
-.btn-primary:hover {
-  transition: 300ms;
-  background-color: white;
-  color: #858585;
 }
 
 .btn-text:hover {
@@ -206,6 +209,10 @@ form .entry * {
   background: #fff;
   transition: width 0.3s ease 0s, left 0.3s ease 0s;
   width: 0;
+}
+
+.btn-text .underline:after {
+  background: var(--clr-btn-primary);
 }
 
 .underline:hover::after {
@@ -303,9 +310,12 @@ h1 {
   font-weight: 500;
   color: var(--clr-header-font);
 }
-
+.primary-color {
+  color: var(--clr-header-font);
+}
 main > div > .btn-text {
   color: var(--clr-header-font);
+  text-decoration: none;
 }
 
 .container-main {
@@ -362,8 +372,11 @@ input:focus {
 }
 
 #login-btn {
-  font-size: 1.5em;
   width: 50%;
+}
+
+#login-btn > p {
+  font-size: 1.5em;
 }
 
 .btn-font {

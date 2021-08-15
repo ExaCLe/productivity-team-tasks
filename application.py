@@ -548,7 +548,7 @@ def friendsSearch():
 @login_required
 def friendsTeamUp():
     # Validate the teamUp
-    username = request.args.get("username_friend")
+    username = request.args.get("username")
     if not username:
         return render_template(
             "error.html", message="Error. No username. Please try again. ")
