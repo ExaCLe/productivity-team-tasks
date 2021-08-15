@@ -8,18 +8,19 @@
 {% block main %}
 <div class="container" >
     {% for user in users %}
-    <div class="entry2 entry">
-        <div class="align-content-left">
-            <p>{{user.username}}</p>
+    <form method="GET" action="/profile" id="friend_request{{user.username}}" style="width: 100%;">
+        <div class="entry2 entry" onClick="document.getElementById('friend_request{{user.username}}').submit();">
+            <div class="align-content-left">
+                <p class="underline">{{user.username}}</p>
+            </div>
+            <div class="align-content-right">
+                <form action="/friends/add" method="GET" >
+                    <input type="hidden" name="username" value="{{user.username}}" > 
+                    <button type="submit" class="btn-text underline" >Hinzufügen</button>
+                </form>
+            </div>
         </div>
-        <div class="align-content-right">
-            <form action="/friends/add" method="GET" >
-                <input type="hidden" name="username" value="{{user.username}}" > 
-                <button type="submit" class="btn-text" >Hinzufügen</button>
-            </form>
-        </div>
-    </div>
-
+    </form>
     {% endfor %}
 </div>
     

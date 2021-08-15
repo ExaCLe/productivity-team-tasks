@@ -8,21 +8,26 @@
 {% block main %}
 <div class="container">
     {%for id, first_score, second_score, first_user, second_user, date in challenges%}
-    <div class="entry3 entry">
-        <div class="container-horizontal container-horizontal-mobile mobile-center">
-            <p>{{first_user}}</p>
-            <p class="font-marker margin-lr"> vs. </p>
-            <p>{{second_user}}</p>
+    <form action="/challenges/details" method="GET" id="{{first_user}}{{second_user}}{{date}}" style="width: 100%">
+        <div class="entry3 entry" onClick="document.getElementById('{{first_user}}{{second_user}}{{date}}').submit();">
+            <div class="container-horizontal container-horizontal-mobile mobile-center">
+                <p class="underline">{{first_user}}</p>
+                <p class="font-marker margin-lr"> vs. </p>
+                <p class="underline">{{second_user}}</p>
+            </div>
+            <div>   
+                <p class="underline">Score: {{first_score}} : {{second_score}}</p>
+            </div>
+            
+            <div class="container-horizontal align-content-right">
+                <p class="margin-lr">Expired: {{date}}</p>
+                
+                    <input type="hidden" name="challenge_id" value={{id}}>
+                    <button type="submit"  class="btn-text underline">Details</button>
+                
+            </div>
         </div>
-        <p>Score: {{first_score}} : {{second_score}}</p>
-        <div class="container-horizontal align-content-right">
-            <p class="margin-lr">Expired: {{date}}</p>
-            <form action="/challenges/details" method="GET">
-                <input type="hidden" name="challenge_id" value={{id}}>
-                <button type="submit"  class="btn-text">Details</button>
-            </form>
-        </div>
-    </div>
+    </form>
     {%endfor%}
     <a class="btn-primary half-size btn-font" href="/challenges">Challenges</a>
 </div>

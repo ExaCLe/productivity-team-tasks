@@ -13,20 +13,25 @@
         <a class="btn-primary" href="/friends/search">Neue Freunde suchen</a>
     </div>
     {% for score, username in friends %}
-    <div class="entry3 entry" >
-        <div class="align-content-left"><p>{{username}}</p></div>
-        <p>Score: {{score}}</p>
-        <div class="container-horiontal align-content-right">
-            <form method="GET" action="/profile">
-                <input type="hidden" name="username" value="{{username}}" >
-                <button class="btn-text margin-lr" type="submit">View his profile</button>
-            </form>
-            <form method="GET" action="/friends/teamUp">
-                <input type="hidden" name="username_friend" value="{{username}}" >
-                <button type="submit" class="btn-text">View his tasks</button>
-            </form>
+    <form method="GET" action="/friends/teamUp" style="width: 100%" id="friend{{username}}">
+        <div class="entry3 entry" onClick="document.getElementById('friend{{username}}').submit();">
+            <div class="align-content-left"><p class="underline">{{username}}</p></div>
+            <div>   
+                <p class="underline">Score: {{score}}</p>
+            </div>
+            
+            <div class="container-horiontal align-content-right">
+                <form method="GET" action="/profile">
+                    <input type="hidden" name="username" value="{{username}}" >
+                    <button class="btn-text margin-lr underline" type="submit">View his profile</button>
+                </form>
+                <form method="GET" action="/friends/teamUp">
+                    <input type="hidden" name="username_friend" value="{{username}}" >
+                    <button type="submit" class="btn-text underline">View his tasks</button>
+                </form>
+            </div>
         </div>
-    </div>
+    </form>
     {% endfor %}
 
 
@@ -36,33 +41,38 @@
     </div>
     {% endif %}
     {% for name in incoming_requests %}
-    <div class="entry2 entry">
-        <div class="align-content-left"><p>{{name}}</p></div>
-        <div class="container-horizontal align-content-right">
-            <form action="/friends/add/accept" method="POST">
-                <input type="hidden" name="username" value="{{name}}" > 
-                <button type="submit" class="btn-text margin-lr">Bestätigen</button>
-            </form>
-            <form action="/friends/add/decline" method="POST">
-                <input type="hidden" name="username" value="{{name}}" > 
-                <button type="submit" class="btn-text">Ablehnen</button>
-            </form>
+    <form method="GET" action="/profile" id="friend_request{{name}}" style="width: 100%;">
+        <div class="entry2 entry" onClick="document.getElementById('friend_request{{name}}').submit();">
+            <div class="align-content-left"><p class="underline">{{name}}</p></div>
+            <div class="container-horizontal align-content-right">
+                <form action="/friends/add/accept" method="POST">
+                    <input type="hidden" name="username" value="{{name}}" > 
+                    <button type="submit" class="btn-text margin-lr underline">Bestätigen</button>
+                </form>
+                <form action="/friends/add/decline" method="POST">
+                    <input type="hidden" name="username" value="{{name}}" > 
+                    <button type="submit" class="btn-text underline">Ablehnen</button>
+                </form>
+            </div>
         </div>
-    </div>
+    </form>
     {% endfor %}
 
     
     {% if pending_requests %}
-    <div class="container-horizontal full-size"> 
+    <div class="container-horizontal full-size" > 
         <h1 class="left-align big-font">Outgoing Requests:</h1>
     </div>
+   
     {% endif %}
     {% for name in pending_requests %}
-    <div class="entry2 entry">
-        <div class="align-content-left">   
-            <p>{{name}}</p>
+    <form method="GET" action="/profile" id="friend_requests{{name}}" style="width: 100%;">
+        <div class="entry2 entry" onClick="document.getElementById('friend_request{{name}}').submit();">
+            <div class="align-content-left">   
+                <p class="underline">{{name}}</p>
+            </div>
         </div>
-    </div>
+    </form>
 
         
     {% endfor %}
