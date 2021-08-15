@@ -128,6 +128,10 @@ header nav p:hover:after {
   height: 100%;
 }
 
+#red {
+  color: var(--clr-header-font);
+}
+
 .btn-text {
   background-color: transparent;
   border: none;
@@ -336,6 +340,10 @@ main > div > .btn-text {
   column-gap: 20px;
 }
 
+input:focus {
+  outline: none;
+}
+
 .textfield input {
   margin-bottom: 10px;
   font-size: 1.5em;
@@ -345,6 +353,12 @@ main > div > .btn-text {
   padding-bottom: 10px;
   width: 100%;
   border-radius: 10px;
+  background-color: var(--clr-background);
+  border-top: 5px solid var(--clr-btn-primary);
+  border-left: 5px solid var(--clr-btn-primary);
+  border-color: var(--clr-btn-primary);
+  border-width: 5px;
+  color: var(--clr-header-font);
 }
 
 #login-btn {
