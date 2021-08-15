@@ -11,7 +11,7 @@
         <a class="entry entry2" onClick="document.getElementById('{{task.id}}').submit();">
             <div class="align-content-left">
                     <input type="hidden" value={{task.id}} name="id">
-                    <button class="btn-text margin-lr" type="submit">{{task.name}}</button>
+                    <button class="btn-text margin-lr underline" type="submit">{{task.name}}</button>
         
             </div>
             <div class="container-horizontal align-content-right">
@@ -30,22 +30,27 @@
     {%if friends %}
     <div class="left-align"><h1>Friends:</h1></div>
     {% for score, username in friends %}
-    <div class="entry entry3">
-        <div class="align-content-left">
-            <p>{{username}}</p>
+    <form method="GET" action="/friends/teamUp" style="width: 100%" id="friend{{username}}">
+        <div class="entry entry3" onClick="document.getElementById('friend{{username}}').submit();">
+            <div class="align-content-left">
+                <p class="underline">{{username}}</p>
+            </div>
+            <div>   
+                <p class="underline">Score: {{score}}</p>
+            </div>
+            
+            <div class="container-horizontal align-content-right">
+                <form method="GET" action="/profile">
+                    <input type="hidden" name="username" value="{{username}}">
+                    <button type="submit"  class="btn-text margin-lr"><p class="underline">View his profile</p></button>
+                </form>
+                
+                    <input type="hidden" name="username_friend" value="{{username}}" >
+                    <button type="submit"  class="btn-text margin-lr underline">View his tasks</button>
+                
+            </div>
         </div>
-        <p>Score: {{score}}</p>
-        <div class="container-horizontal align-content-right">
-            <form method="GET" action="/profile">
-                <input type="hidden" name="username" value="{{username}}">
-                <button type="submit"  class="btn-text margin-lr">View his profile</button>
-            </form>
-            <form method="GET" action="/friends/teamUp">
-                <input type="hidden" name="username_friend" value="{{username}}" >
-                <button type="submit"  class="btn-text margin-lr">View his tasks</button>
-            </form>
-        </div>
-    </div>
+    </form>
     {% endfor %}
     <a class="btn-text" href="/friends">View All Friends</a>
     {% endif %} 
@@ -53,21 +58,26 @@
     {%if challenges %}
     <div class="left-align"><h1>Challenges:</h1></div>
     {%for id, first_score, second_score, first_user, second_user, date in challenges%}
-    <div class="entry entry3">
-        <div class="container-horizontal container-horizontal-mobile mobile-center">
-            <p>{{first_user}}</p>
-            <p class="font-marker margin-lr"> vs. </p>
-            <p>{{second_user}}</p>
-        </div>
-        <p>Score: {{first_score}} : {{second_score}}</p>
-        <div class="container-horizontal align-content-right">
-            <p class="margin-lr">Expires: {{date}}</p>
-            <form action="/challenges/details" method="GET">
-                <input type="hidden" name="challenge_id" value={{id}}>
-                <button type="submit"  class="btn-text">Details</button>
-            </form>
-        </div>
-    </div>
+    <form action="/challenges/details" style="width: 100%;" method="GET" id='challenge{{first_user}}{{second_user}}{{first_score}}{{second_score}}'>
+        <div class="entry entry3" onClick="document.getElementById('challenge{{first_user}}{{second_user}}{{first_score}}{{second_score}}').submit();">
+            <div class="container-horizontal container-horizontal-mobile mobile-center">
+                <p class="underline">{{first_user}}</p>
+                <p class="font-marker margin-lr"> vs. </p>
+                <p class="underline">{{second_user}}</p>
+            </div>
+            <div>   
+                <p class="underline">Score: {{first_score}} : {{second_score}}</p>
+            </div>
+            
+            <div class="container-horizontal align-content-right">
+                <p class="margin-lr">Expires: {{date}}</p>
+                
+                    <input type="hidden" name="challenge_id" value={{id}}>
+                    <button type="submit"  class="btn-text underline">Details</button>
+
+            </div>
+        </div>            
+    </form>
     {%endfor%}
     <a class="btn-text" href="/challenges">View All Challenges</a>
     {% endif %}
@@ -76,21 +86,23 @@
     {%if incoming_friend_requests %}
     <div class="left-align"><h1>Friend Requests:</h1></div>
     {% for name in incoming_friend_requests %}
-    <div class="entry entry2">
-        <div class="align-content-left">
-            <p>{{name}}</p>
+    <form method="GET" action="/profile" id="friend_request{{name}}" style="width: 100%;">
+        <div class="entry entry2" onClick="document.getElementById('friend_request{{name}}').submit();">
+            <div class="align-content-left">
+                <p class="underline">{{name}}</p>
+            </div>
+            <div class="container-horizontal align-content-right">
+                <form action="/friends/add/accept" method="POST">
+                    <input type="hidden" name="username" value="{{name}}" > 
+                    <button type="submit"  class="btn-text margin-lr underline">Bestätigen</button>
+                </form>
+                <form action="/friends/add/decline" method="POST">
+                    <input type="hidden" name="username" value="{{name}}" > 
+                    <button type="submit"  class="btn-text margin-lr underline">Ablehnen</button>
+                </form>
+            </div>
         </div>
-        <div class="container-horizontal align-content-right">
-            <form action="/friends/add/accept" method="POST">
-                <input type="hidden" name="username" value="{{name}}" > 
-                <button type="submit"  class="btn-text margin-lr">Bestätigen</button>
-            </form>
-            <form action="/friends/add/decline" method="POST">
-                <input type="hidden" name="username" value="{{name}}" > 
-                <button type="submit"  class="btn-text margin-lr">Ablehnen</button>
-            </form>
-        </div>
-    </div>
+    </form>
     {% endfor %}
     <a class="btn-text" href="/friends">View All Requests</a>
     {% endif %}
@@ -99,21 +111,23 @@
     {%if incoming_challenge_requests %}
     <div class="left-align"><h1>Challenge Requests:</h1></div>
     {% for name in incoming_challenge_requests %}
-    <div class="entry entry2">
-        <div class="align-content-left">
-            <p>{{name}}</p>
-        </div>  
-        <div class="container-horizontal align-content-right">
-            <form action="/challenges/accept" method="POST">
-                <input type="hidden" name="username" value="{{name}}" > 
-                <button type="submit" class="btn-text margin-lr">Bestätigen</button>
-            </form>
-            <form action="/challenges/decline" method="POST">
-                <input type="hidden" name="username" value="{{name}}" > 
-                <button type="submit" class="btn-text margin-lr">Ablehnen</button>
-            </form>
+    <form method="GET" action="/profile" id="challenge_request{{name}}" style="width: 100%;">
+        <div class="entry entry2" onClick="document.getElementById('challenge_request{{name}}').submit();">
+            <div class="align-content-left">
+                <p class="underline">{{name}}</p>
+            </div>  
+            <div class="container-horizontal align-content-right">
+                <form action="/challenges/accept" method="POST">
+                    <input type="hidden" name="username" value="{{name}}" > 
+                    <button type="submit" class="btn-text margin-lr underline">Bestätigen</button>
+                </form>
+                <form action="/challenges/decline" method="POST">
+                    <input type="hidden" name="username" value="{{name}}" > 
+                    <button type="submit" class="btn-text margin-lr underline">Ablehnen</button>
+                </form>
+            </div>
         </div>
-    </div>
+    </form>
     {% endfor %}
     <a class="btn-text" href="/challenges">View All Challenges</a>
     {% endif %}

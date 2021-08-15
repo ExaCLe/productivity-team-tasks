@@ -187,6 +187,28 @@ form .entry * {
   cursor: pointer;
 }
 
+.underline {
+  display: inline-block;
+}
+
+.underline:after {
+  background: none repeat scroll 0 0 transparent;
+  bottom: 0;
+  content: "";
+  display: block;
+  position: relative;
+  height: 2px;
+  left: 50%;
+  background: #fff;
+  transition: width 0.3s ease 0s, left 0.3s ease 0s;
+  width: 0;
+}
+
+.underline:hover::after {
+  left: 0;
+  width: 100%;
+}
+
 .entry {
   position: relative;
   display: grid;
@@ -196,7 +218,13 @@ form .entry * {
   border-radius: 10px;
   border: 2px solid var(--clr-entry-border);
   width: 100%;
+  left: 0px;
+  top: 0px;
   box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.2);
+}
+
+.entry-container:hover .entry {
+  transition: left 50ms, top 50ms, box-shadow 50ms;
 }
 
 .entry button {
@@ -204,23 +232,9 @@ form .entry * {
 }
 
 .entry:hover {
-  animation-name: test;
-  animation-duration: 50ms;
-  animation-direction: normal;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-}
-
-@keyframes test {
-  0% {
-    left: 0px;
-    top: 0px;
-  }
-  100% {
-    left: 5px;
-    top: 5px;
-    box-shadow: none;
-  }
+  left: 5px;
+  top: 5px;
+  box-shadow: none;
 }
 
 .entry3 {
