@@ -194,10 +194,6 @@ form .entry * {
   cursor: pointer;
 }
 
-.underline {
-  display: inline-block;
-}
-
 .underline:after {
   background: none repeat scroll 0 0 transparent;
   bottom: 0;

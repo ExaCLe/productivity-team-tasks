@@ -8,14 +8,19 @@
     <div class="left-align"> <h1 >Your current Tasks: </h1></div>
     {% for task in tasks %}
     <form method="GET" action="/tasks/edit" style="width: 100%" id="{{task.id}}">
-        <a class="entry entry2" onClick="document.getElementById('{{task.id}}').submit();">
+        <a class="entry entry3" onClick="document.getElementById('{{task.id}}').submit();">
             <div class="align-content-left">
                     <input type="hidden" value={{task.id}} name="id">
                     <button class="btn-text margin-lr underline" type="submit">{{task.name}}</button>
         
             </div>
+            <div class="info-container">   
+                       
+                <p class="underline ">Categorie: {{task.categorie}}</p>
+                <p class="underline " style="text-align: left;">Due: {{task.due}}</p>
+            </div>
             <div class="container-horizontal align-content-right">
-                <p class="margin-lr"><time>{{task.due}}</time></p>
+               
                 <form method="POST" action="/tasks">
                     <input type="hidden" value={{task.id}} name="id">
                     <button class="btn-text margin-lr check" type="submit" >✓</button>

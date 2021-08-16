@@ -14,7 +14,7 @@
        
         {% for task in tasks %}
             <!-- There are the following fields in every task that are helpful: name and due date -->
-            <form method="GET" action="/tasks/edit" style="width: 100%" id="{{task.id}}">
+            
                 <div class="entry3 entry" onClick="document.getElementById('{{task.id}}').submit();">
                     <div class="align-content-left">
                         <p class="underline">{{task.name}}</p>
@@ -38,7 +38,7 @@
                         </form>
                     </div>
                 </div>
-            </form>
+           
         {% endfor %}
     </div>
     
