@@ -301,26 +301,39 @@ def profile():
         if username is None:
             username = db.execute("SELECT username FROM users WHERE id=?",
                                   session.get("user_id"))[0]["username"]
-            try:
-                score = db.execute("SELECT score FROM scores WHERE user_id=?",
-                                   session.get("user_id"))[0]["score"]
-            except:
-                score = "xxxx"
-            return render_template("profiles/profile.html",
-                                   own_profile=True,
-                                   username=username,
-                                   score=score)
+
+            score = db.execute("SELECT * FROM scores WHERE user_id=?",
+                               session.get("user_id"))
+            score_normal = score[0]["score"]
+            score_work = score[0]["score_work"]
+            score_daily = score[0]["score_daily"]
+            score_health = score[0]["score_health"]
+            score_education = score[0]["score_education"]
+
+            return render_template(
+                "profiles/profile.html",
+                own_profile=True,
+                username=username,
+                score=score_normal,
+                score_work=score_work,
+                score_daily=score_daily,
+                score_health=score_health,
+                score_education=score_education,
+            )
         else:
-            # Username provided via get
             try:
                 user_id = db.execute("SELECT id FROM users WHERE username=?",
                                      username)[0]["id"]
-                score = db.execute("SELECT score FROM scores WHERE user_id=?",
+                score = db.execute("SELECT * FROM scores WHERE user_id=?",
                                    user_id)
                 if len(score) == 0:
                     score = "xxxx"
                 else:
-                    score = score[0]["score"]
+                    score_normal = score[0]["score"]
+                    score_work = score[0]["score_work"]
+                    score_daily = score[0]["score_daily"]
+                    score_health = score[0]["score_health"]
+                    score_education = score[0]["score_education"]
                 friend = db.execute(
                     "SELECT * FROM friends WHERE (first_user_id = ? AND second_user_id = ?) OR (first_user_id = ? AND second_user_id = ?)",
                     user_id, session.get("user_id"), session.get("user_id"),
@@ -332,7 +345,11 @@ def profile():
                 return render_template("profiles/profile.html",
                                        own_profile=False,
                                        username=username,
-                                       score=score,
+                                       score=score_normal,
+                                       score_work=score_work,
+                                       score_daily=score_daily,
+                                       score_health=score_health,
+                                       score_education=score_education,
                                        friend=friend)
             except:
                 return return_error("An error occured. ")
