@@ -154,7 +154,11 @@ def register():
                 "error.html",
                 code=403,
                 message="Something went wrong. Please try again. ")
-
+        id = db.execute("SELECT id FROM users WHERE username = ?",
+                        username)[0]["id"]
+        db.execute(
+            "INSERT INTO scores (score, user_id, score_work, score_daily, score_health, score_education) VALUES (0, ?, 0, 0, 0, 0)",
+            id)
         return redirect("/login")
     else:
         return render_template("register.html")
@@ -188,6 +192,23 @@ def tasks():
         if result is not None:
             db.execute("UPDATE tasks SET fullfilled=1 WHERE id=?",
                        request.form.get("id"))
+        score = db.execute("SELECT * FROM scores WHERE user_id = ?",
+                           session.get("user_id"))
+        if (len(score) == 0):
+            db.execute(
+                "INSERT INTO scores (score, user_id, score_work, score_daily, score_health, score_education) VALUES (0, ?, 0, 0, 0, 0)",
+                session.get("user_id"))
+        # Update the score of the user
+        task = db.execute("SELECT * FROM tasks WHERE id=?",
+                          request.form.get("id"))[0]
+        categorie = task["categorie"]
+        if categorie is None:
+            categorie = "work"
+        score = task["score"]
+        statement = "score_" + categorie
+        db.execute(
+            "UPDATE scores SET score = score + ?, ? = ? + ? WHERE user_id = ? ",
+            score, statement, statement, score, session.get("user_id"))
         return redirect("/tasks")
 
 

@@ -60,6 +60,10 @@ header nav {
   text-align: center;
 }
 
+.underline {
+  display: inline-block;
+}
+
 header nav p.li {
   display: inline-block;
   padding: 1rem 6rem;
