@@ -10,12 +10,25 @@
         <p>{{message}}</p>
     {% endif %}
     <form method="post" action="/tasks/add" class="form">
-        <div class="textfield">
-            <input type="text" placeholder="Name" name="name" autofocus autocomplete="off">
+        <div class="textfield container-horizontal">
+            <label for="name" >Name:</label>
+            <input type="text" name="name" autofocus autocomplete="off" required>
         </div>
-        <div class="textfield">
-            <input type="date" name="due" placeholder="Fälligkeitsdatum">
+        <div class="textfield container-horizontal">
+            <label for="due" >Due:</label>
+            <input type="date" name="due" placeholder="Fälligkeitsdatum" required>
         </div>
-        <button class="btn-primary" id="login-btn" type="submit"><p class="underline" >Add Task</p></button>
+
+        <div class="container-horizontal half-size">
+        <label for="categorie" >Categorie:</label>
+          <select name="categorie" id="categorie" required>
+              <option  value="work" >Work</option>
+              <option value="daily" >Daily Stuff</option>
+              <option value="health" >Health</option>
+              <option value="education" >Education</option>
+          </select> 
+          
+        </div>
+        <button class="btn-primary" id="task-btn" type="submit"><p class="underline" >Add Task</p></button>
     </form>
 {% endblock %}

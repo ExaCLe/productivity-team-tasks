@@ -354,6 +354,10 @@ input:focus {
   outline: none;
 }
 
+select:focus {
+  outline: none;
+}
+
 .textfield input {
   margin-bottom: 10px;
   font-size: 1.5em;
@@ -369,6 +373,45 @@ input:focus {
   border-color: var(--clr-btn-primary);
   border-width: 5px;
   color: var(--clr-header-font);
+}
+.half-size {
+  width: 50%;
+}
+
+form select {
+  margin-bottom: 10px;
+  font-size: 1.5em;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 100%;
+  border-radius: 10px;
+  background-color: var(--clr-background);
+  border-top: 5px solid var(--clr-btn-primary);
+  border-left: 5px solid var(--clr-btn-primary);
+  border-color: var(--clr-btn-primary);
+  border-width: 5px;
+  color: var(--clr-header-font);
+}
+
+form label {
+  text-align: left;
+  margin-bottom: 10px;
+  font-size: 1.5em;
+  width: 20%;
+  padding-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: var(--clr-header-font);
+}
+
+#task-btn {
+  width: 30%;
+}
+
+#task-btn > p {
+  font-size: 1.5em;
 }
 
 #login-btn {

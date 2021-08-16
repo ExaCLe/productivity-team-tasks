@@ -204,15 +204,19 @@ def addTask():
         if name == "" or name is None:
             return render_template("tasks/add.html",
                                    message="Bitte Namen eingeben.")
+        categorie = request.form.get("categorie")
+        if categorie not in ["work", "daily", "health", "education"]:
+            return render_template("tasks/add.html",
+                                   message="Bitte gültige Kategorie eingeben.")
         date = request.form.get("due")
         if date is not None:
             db.execute(
-                "INSERT INTO tasks (name, user_id, due, fullfilled, private) VALUES (?, ?, ?, 0, 0)",
-                name, session.get("user_id"), date)
+                "INSERT INTO tasks (name, user_id, due, fullfilled, private, categorie) VALUES (?, ?, ?, 0, 0, ?)",
+                name, session.get("user_id"), date, categorie)
         else:
             db.execute(
-                "INSERT INTO tasks (description, user_id, fullfilled, private) VALUES (?, ?, 0, 0)",
-                name, session.get("user_id"))
+                "INSERT INTO tasks (description, user_id, fullfilled, private, categorie) VALUES (?, ?, 0, 0, ?)",
+                name, session.get("user_id"), categorie)
         return redirect("/tasks")
 
 
