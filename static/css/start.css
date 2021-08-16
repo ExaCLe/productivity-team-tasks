@@ -358,6 +358,12 @@ select:focus {
   outline: none;
 }
 
+.info-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .textfield input {
   margin-bottom: 10px;
   font-size: 1.5em;
