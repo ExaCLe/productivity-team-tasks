@@ -25,6 +25,7 @@ Im Terminal:
 
 ```
 export FLASK_APP=application.py
+export FLASK_ENV=development
 
 // on windows:
 set FLASK_APP=application.py
