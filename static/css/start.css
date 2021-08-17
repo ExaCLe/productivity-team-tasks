@@ -121,6 +121,92 @@ header nav p:hover:after {
   margin: 10px 10px 10px 10px;
 }
 
+.score-stats-container {
+  height: 400px;
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-end;
+}
+.stats-bar-container {
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+.score-bar {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  width: 4vw;
+  height: 100%;
+  background-color: blue;
+  margin-left: 10px;
+  margin-right: 10px;
+  animation: 2.5s ease 0s 1 normal forwards running score;
+}
+
+@keyframes score {
+  from {
+    height: 0%;
+  }
+  to {
+    height: 100%;
+  }
+}
+
+.stats-label-container {
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  justify-content: center;
+}
+
+.stats-label {
+  width: 20%;
+  margin-top: 20px;
+}
+
+div.stats-work {
+  background-color: lightseagreen;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  color: lightseagreen;
+}
+p.stats-work {
+  color: lightseagreen;
+}
+
+div.stats-daily {
+  background-color: lightpink;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  color: lightpink;
+}
+p.stats-daily {
+  color: lightpink;
+}
+
+div.stats-health {
+  background-color: lightgreen;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  color: lightgreen;
+}
+p.stats-health {
+  color: lightgreen;
+}
+
+div.stats-education {
+  background-color: lightcoral;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  color: lightcoral;
+}
+p.stats-education {
+  color: lightcoral;
+}
+
 .btn-primary {
   max-width: 100%;
   padding: 10px 5px 10px 5px;
@@ -316,6 +402,10 @@ h1 {
 main > div > .btn-text {
   color: var(--clr-header-font);
   text-decoration: none;
+}
+
+main {
+  min-height: 100vh;
 }
 
 .container-main {

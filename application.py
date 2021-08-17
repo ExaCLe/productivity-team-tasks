@@ -310,6 +310,9 @@ def profile():
             score_health = score[0]["score_health"]
             score_education = score[0]["score_education"]
 
+            score_max = max(score_daily, score_work, score_education,
+                            score_health)
+
             return render_template(
                 "profiles/profile.html",
                 own_profile=True,
@@ -319,6 +322,7 @@ def profile():
                 score_daily=score_daily,
                 score_health=score_health,
                 score_education=score_education,
+                score_max=score_max,
             )
         else:
             try:
@@ -342,6 +346,8 @@ def profile():
                     friend = False
                 else:
                     friend = True
+                score_max = max(score_daily, score_work, score_education,
+                                score_health)
                 return render_template("profiles/profile.html",
                                        own_profile=False,
                                        username=username,
@@ -350,6 +356,7 @@ def profile():
                                        score_daily=score_daily,
                                        score_health=score_health,
                                        score_education=score_education,
+                                       score_max=score_max,
                                        friend=friend)
             except:
                 return return_error("An error occured. ")

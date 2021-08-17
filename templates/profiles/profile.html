@@ -9,7 +9,39 @@
     <p class="big-font">{{username}}</p>
     <img class="profile-pic" src="../../static/images/416-4161690_empty-profile-picture-blank-avatar-image-circle.png" alt="picture">
     <p class="btn-font">Score: {{score}}</p>
-    <table id="q-graph">
+
+
+    <div class="score-stats-container">
+        <div style="height: {{score_work / score_max * 100}}%;" class="stats-bar-container">
+            <div class="stats-work score-bar ">
+                <p  >{{score_work}}</p>
+            </div>
+        </div>
+        <div style="height: {{score_daily / score_max * 100}}%;" class="stats-bar-container">
+            <div class="stats-daily score-bar " >
+                <p >{{score_daily}}</p>
+            </div>
+        </div>
+        <div style="height: {{score_health / score_max * 100}}%;" class="stats-bar-container">
+            <div class="stats-health score-bar " >
+                <p>{{score_health}}</p>
+            </div>
+        </div>
+        <div style="height: {{score_education / score_max * 100}}%;" class="stats-bar-container">
+            <div class="stats-education score-bar " >
+                <p >{{score_education}}</p>
+            </div>
+        </div>    
+    </div>
+    <div class="stats-label-container">
+        <p class="stats-label stats-work">Work</p>
+        <p class="stats-label stats-daily">Daily</p>
+        <p class="stats-label stats-health">Health</p>
+        <p class="stats-label stats-education">Education</p> 
+    </div>
+
+
+    <!-- <table id="q-graph">
         <tbody>
             <tr class="qtr" id="q1">
                 <th scope="row">work</th>
@@ -38,7 +70,8 @@
             <div class="tick" style="height: 59px;"><p>3000</p></div>
             <div class="tick" style="height: 59px;"><p>2000</p></div>
             <div class="tick" style="height: 59px;"><p>1000</p></div>
-        </div>
+        </div> -->
+
         
     {%if own_profile%}
         <a class="btn-primary half-size" style="margin: 3rem 0 0 0;" href="/profile/edit"><p class="underline" >Edit</p></a>
