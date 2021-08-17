@@ -212,6 +212,7 @@ p.stats-education {
   padding: 10px 5px 10px 5px;
   border-radius: 10px;
   text-decoration: none;
+  text-align: center;
   border: 2px solid var(--clr-btn-primary-border);
   background-color: var(--clr-btn-primary);
   color: white;

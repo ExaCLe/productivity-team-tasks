@@ -5,14 +5,21 @@ from flask import Flask, redirect, render_template, request, session
 from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.utils import secure_filename
+import os
 
 from helpers import login_required, createRequest, getChallenges, return_error, respondRequest, getTasks, getUsername, getRequests
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+UPLOAD_FOLDER = os.path.join(basedir, "static/avatars")
+ALLOWED_EXTENSIONS = {'jpg'}
 
 # Configure application
 app = Flask(__name__)
 
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # Configure session to use filesystem (instead of signed cookies)
 app.config["SESSION_FILE_DIR"] = mkdtemp()
@@ -299,9 +306,11 @@ def profile():
         username = request.args.get("username")
         # Check for the user trying to access his own profile
         if username is None:
-            username = db.execute("SELECT username FROM users WHERE id=?",
-                                  session.get("user_id"))[0]["username"]
-
+            user = db.execute(
+                "SELECT username, profile_pic FROM users WHERE id=?",
+                session.get("user_id"))[0]
+            username = user["username"]
+            profile_pic = user["profile_pic"]
             score = db.execute("SELECT * FROM scores WHERE user_id=?",
                                session.get("user_id"))
             score_normal = score[0]["score"]
@@ -312,10 +321,14 @@ def profile():
 
             score_max = max(score_daily, score_work, score_education,
                             score_health)
-
+            if score_max == 0:
+                score_max = 1
+            if profile_pic:
+                profile_pic = secure_filename(username + ".jpg")
             return render_template(
                 "profiles/profile.html",
                 own_profile=True,
+                profile_pic=profile_pic,
                 username=username,
                 score=score_normal,
                 score_work=score_work,
@@ -326,8 +339,12 @@ def profile():
             )
         else:
             try:
-                user_id = db.execute("SELECT id FROM users WHERE username=?",
-                                     username)[0]["id"]
+                user = db.execute(
+                    "SELECT id, profile_pic FROM users WHERE username=?",
+                    username)[0]
+                user_id = user["username"]
+                profile_pic = user["profile_pic"]
+
                 score = db.execute("SELECT * FROM scores WHERE user_id=?",
                                    user_id)
                 if len(score) == 0:
@@ -348,8 +365,13 @@ def profile():
                     friend = True
                 score_max = max(score_daily, score_work, score_education,
                                 score_health)
+                if profile_pic:
+                    profile_pic = secure_filename(username + ".jpg")
+                if score_max == 0:
+                    score_max = 1
                 return render_template("profiles/profile.html",
                                        own_profile=False,
+                                       profile_pic=profile_pic,
                                        username=username,
                                        score=score_normal,
                                        score_work=score_work,
@@ -361,6 +383,11 @@ def profile():
             except:
                 return return_error("An error occured. ")
     return render_template("profiles/profile.html")
+
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 # Routes/Profile/Edit
@@ -375,9 +402,7 @@ def profileEdit():
         current_password = request.form.get("current_password")
         password = request.form.get("password")
         confirmation = request.form.get("confirm_password")
-        print("_____")
-        print(email)
-        print("______")
+        file = request.files["profile_pic"]
 
         if username != "":
             # validate the username
@@ -391,12 +416,26 @@ def profileEdit():
                 return render_template("error.html",
                                        code=403,
                                        message="username is already used")
-            if not db.execute("UPDATE users SET username = ? WHERE id = ?",
-                              username, session.get("user_id")):
+            if not db.execute(
+                    "UPDATE users SET username = ?, profile_pic = 0 WHERE id = ?",
+                    username, session.get("user_id")):
                 return render_template(
                     "error.html",
                     code=403,
                     message="Something went wrong. Please try again. ")
+        if file and allowed_file(file.filename):
+            if (username == ""):
+                username = db.execute(
+                    "SELECT username FROM users WHERE id = ?",
+                    session.get("user_id"))[0]["username"]
+            filename = username + ".jpg"
+            print(filename)
+            filename = secure_filename(filename)
+            print(filename)
+            file.save(
+                os.path.join(basedir, app.config['UPLOAD_FOLDER'], filename))
+            db.execute("UPDATE users SET profile_pic = 1 WHERE id = ?",
+                       session.get("user_id"))
         if email != "":
             # Validate the email
             if email == "":

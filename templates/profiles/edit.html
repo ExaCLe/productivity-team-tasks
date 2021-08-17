@@ -6,12 +6,13 @@
 {% endblock %}
 
 {% block main %}
-    <form method="POST" action="/profile/edit" class="form">
+    <form method="POST" action="/profile/edit" class="form" enctype="multipart/form-data">
         <div class="textfield"><input type="email" placeholder="Neue E-Mail Adresse" name="email" /></div>
         <div class="textfield"><input type="password" placeholder="Neues Password" name="password" /></div>
         <div class="textfield"><input type="password" placeholder="Bestätige neues Password" name="confirm_password" /></div>
         <div class="textfield"><input type="password" placeholder="Aktuelles Password" name="current_password" /></div>
         <div class="textfield"><input type="username" placeholder="Neuer Username" name="username" /></div>
+        <label for="profilePic" class="btn-primary">Upload Profile Picute</label> <input type="file" id="profilePic" name="profile_pic" style="display: none">
         <button class="btn-primary half-size btn-font" type="submit" ><p class="underline" >Submit</p></button>
     </form>
 {% endblock %}

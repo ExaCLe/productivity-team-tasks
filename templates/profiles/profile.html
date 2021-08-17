@@ -7,7 +7,11 @@
 
 {% block main %}
     <p class="big-font">{{username}}</p>
+    {% if profile_pic %}
+    <img class="profile-pic" src="../../static/avatars/{{profile_pic}}" alt="avatar" />
+    {% else %}
     <img class="profile-pic" src="../../static/images/416-4161690_empty-profile-picture-blank-avatar-image-circle.png" alt="picture">
+    {% endif %}
     <p class="btn-font">Score: {{score}}</p>
 
 
