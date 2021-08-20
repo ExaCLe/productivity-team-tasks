@@ -343,50 +343,50 @@ def profile():
                 score_max=score_max,
             )
         else:
-            try:
-                user = db.execute(
-                    "SELECT id, profile_pic FROM users WHERE username=?",
-                    username)[0]
-                user_id = user["username"]
-                profile_pic = user["profile_pic"]
+            user = db.execute(
+                "SELECT id, username, profile_pic FROM users WHERE username=?",
+                username)[0]
+            user_id = user["username"]
+            profile_pic = user["profile_pic"]
 
-                score = db.execute("SELECT * FROM scores WHERE user_id=?",
-                                   user_id)
-                if len(score) == 0:
-                    score = "xxxx"
-                else:
-                    score_normal = score[0]["score"]
-                    score_work = score[0]["score_work"]
-                    score_daily = score[0]["score_daily"]
-                    score_health = score[0]["score_health"]
-                    score_education = score[0]["score_education"]
-                friend = db.execute(
-                    "SELECT * FROM friends WHERE (first_user_id = ? AND second_user_id = ?) OR (first_user_id = ? AND second_user_id = ?)",
-                    user_id, session.get("user_id"), session.get("user_id"),
-                    user_id)
-                if len(friend) == 0:
-                    friend = False
-                else:
-                    friend = True
-                score_max = max(score_daily, score_work, score_education,
-                                score_health)
-                if profile_pic:
-                    profile_pic = secure_filename(username + ".jpg")
-                if score_max == 0:
-                    score_max = 1
-                return render_template("profiles/profile.html",
-                                       own_profile=False,
-                                       profile_pic=profile_pic,
-                                       username=username,
-                                       score=score_normal,
-                                       score_work=score_work,
-                                       score_daily=score_daily,
-                                       score_health=score_health,
-                                       score_education=score_education,
-                                       score_max=score_max,
-                                       friend=friend)
-            except:
-                return return_error("An error occured. ")
+            score = db.execute("SELECT * FROM scores WHERE user_id=?", user_id)
+            if len(score) == 0:
+                score_normal = 0
+                score_daily = 0
+                score_work = 0
+                score_education = 0
+                score_health = 0
+            else:
+                score_normal = score[0]["score"]
+                score_work = score[0]["score_work"]
+                score_daily = score[0]["score_daily"]
+                score_health = score[0]["score_health"]
+                score_education = score[0]["score_education"]
+            friend = db.execute(
+                "SELECT * FROM friends WHERE (first_user_id = ? AND second_user_id = ?) OR (first_user_id = ? AND second_user_id = ?)",
+                user_id, session.get("user_id"), session.get("user_id"),
+                user_id)
+            if len(friend) == 0:
+                friend = False
+            else:
+                friend = True
+            score_max = max(score_daily, score_work, score_education,
+                            score_health)
+            if profile_pic:
+                profile_pic = secure_filename(username + ".jpg")
+            if score_max == 0:
+                score_max = 1
+            return render_template("profiles/profile.html",
+                                   own_profile=False,
+                                   profile_pic=profile_pic,
+                                   username=username,
+                                   score=score_normal,
+                                   score_work=score_work,
+                                   score_daily=score_daily,
+                                   score_health=score_health,
+                                   score_education=score_education,
+                                   score_max=score_max,
+                                   friend=friend)
     return render_template("profiles/profile.html")
 
 

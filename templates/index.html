@@ -37,21 +37,25 @@
     {%if friends %}
     <div class="left-align"><h1>Friends:</h1></div>
     {% for score, username in friends %}
-    <form method="GET" action="/friends/teamUp" style="width: 100%" id="friend{{username}}">
         <div class="entry entry3" onClick="document.getElementById('friend{{username}}').submit();">
-            <div class="align-content-left">
-                <p class="underline">{{username}}</p>
+            <div>
+                <form method="GET" action="/friends/teamUp" style="width: 100%" id="friend{{username}}" class="align-content-left">
+                    <button type="submit" class="underline btn-text">{{username}}</button>
+                    <input type="hidden" name="username" value="{{username}}">
+                </form>
             </div>
-            <div>   
-                <p class="underline">Score: {{score}}</p>
+            <div>  
+                <form method="GET" action="/friends/teamUp" style="width: 100%" id="friend{{username}}">
+                    <button type="submit" class="underline btn-text">Score: {{score}}</button>
+                    <input type="hidden" name="username" value="{{username}}">
+                </form>  
             </div>
             
             <div class="container-horizontal align-content-right">
                 <form method="GET" action="/profile">
                     <input type="hidden" name="username" value="{{username}}">
-                    <button type="submit"  class="btn-text margin-lr"><p class="underline">View his profile</p></button>
+                    <button type="submit"  class="btn-text margin-lr underline"><p class="underline">View his profile</p></button>
                 </form>
-                
                     <input type="hidden" name="username_friend" value="{{username}}" >
                     <button type="submit"  class="btn-text margin-lr underline">View his tasks</button>
                 
