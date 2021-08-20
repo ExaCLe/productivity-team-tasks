@@ -12,26 +12,24 @@
         <a class="btn-primary" href="/challenges/search"><p class="underline" >New Challenge</p></a>
     </div>
     {%for id, first_score, second_score, first_user, second_user, date in challenges%}
-    <form action="/challenges/details" method="GET" id='{{first_user}}{{second_user}}{{date}}{{id}}'  style="width: 100%;">
-        <div class="entry3 entry" onClick="document.getElementById('{{first_user}}{{second_user}}{{date}}{{id}}').submit();">
+    <div class="entry3 entry" onClick="document.getElementById('{{first_user}}{{second_user}}{{date}}{{id}}').submit();">
+        <form action="/challenges/details" method="GET" id='{{first_user}}{{second_user}}{{date}}{{id}}'  style="width: 100%;">
             <div class="container-horizontal container-horizontal-mobile mobile-center" >
                 <p class="underline">{{first_user}}</p>
                 <p class="font-marker margin-lr"> vs. </p>
                 <p class="underline">{{second_user}}</p>
+                <input type="hidden" name="challenge_id" value={{id}}>
             </div>
-            <div>   
-                <p class="underline">Score: {{first_score}} : {{second_score}}</p>
-            </div>
-           
-            <div class="container-horizontal align-content-right">
-                <p class="margin-lr">Expires: {{date}}</p>
-                
-                    <input type="hidden" name="challenge_id" value={{id}}>
-                    <button type="submit"  class="btn-text underline">Details</button>
-            
-            </div>
-        </div> 
-    </form>
+        </form>
+        <div>   
+            <p class="underline">Score: {{first_score}} : {{second_score}}</p>
+        </div>
+        <div class="container-horizontal align-content-right">
+            <p class="margin-lr">Expires: {{date}}</p>
+                <input type="hidden" name="challenge_id" value={{id}}>
+                <button type="submit"  class="btn-text underline">Details</button>
+        </div>
+    </div>
     {%endfor%}
 
 
@@ -41,10 +39,12 @@
     </div>
     {% endif %}
     {% for name in incoming_requests %}
-    <form method="GET" action="/profile" id="challenge_request{{name}}" style="width: 100%;">
         <div class="entry2 entry" onClick="document.getElementById('challenge_request{{name}}').submit();">
-            <div class="align-content-left">
-                <p class="underline">{{name}}</p>
+            <div >
+                <form method="GET" action="/profile" id="challenge_request{{name}}" style="width: 100%;" class="align-content-left">
+                    <p class="underline">{{name}}</p>
+                    <input type="hidden" name="username" value="{{name}}" >
+                </form>
             </div>
             <div class="container-horizontal align-content-right">
                 <form action="/challenges/accept" method="POST">
@@ -67,13 +67,14 @@
     </div>
     {% endif %}
     {% for name in pending_requests %}
-    <form method="GET" action="/profile" id="challenge_request{{name}}" style="width: 100%;">
-        <div class="entry2 entry" onClick="document.getElementById('challenge_request{{name}}').submit();">
+    <div class="entry2 entry" onClick="document.getElementById('challenge_request{{name}}').submit();">
+        <form method="GET" action="/profile" id="challenge_request{{name}}" style="width: 100%;"> 
             <div class="align-content-left">
+                <input type="hidden" name="username" value="{{name}}"> 
                 <p class="underline">{{name}}</p>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
     {% endfor %}
 
     <a class="btn-primary margin half-size" href="/challenges/history"><p class="underline">View Challenge History</p></a>
