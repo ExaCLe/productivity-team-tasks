@@ -11,34 +11,32 @@
             <h1 class="left-align big-font">Current Tasks:</h1>
             <a href="/tasks/add" class="btn-primary"><p class="underline" >Add New Task</p></a>
         </div>
-       
         {% for task in tasks %}
             <!-- There are the following fields in every task that are helpful: name and due date -->
-            
-                <div class="entry3 entry" onClick="document.getElementById('{{task.id}}').submit();">
+            <div class="entry3 entry" onClick="document.getElementById('{{task.id}}').submit();">
+                <form method="GET" action="/tasks/edit" style="width: 100%" id="{{task.id}}">
                     <div class="align-content-left">
                         <p class="underline">{{task.name}}</p>
                     </div>
-                    <!-- Currently it is possible that there is no due date -->
-                    <div class="info-container">   
-                       
-                        <p class="underline ">Categorie: {{task.categorie}}</p>
-                        <p class="underline " style="text-align: left;">Due: {{task.due}}</p>
-                    </div>
-                   
-                    <div class="container-horizontal align-content-right">
-                        
-                        <form method="GET" action="/tasks/edit">
-                            <input type="hidden" value={{task.id}} name="id">
-                            <button class="btn-text margin-lr underline" type="submit">Edit</button>
-                        </form>
-                        <form method="POST" action="/tasks">
-                            <input type="hidden" value={{task.id}} name="id">
-                            <button class="btn-text margin-lr check" type="submit">✓</button>
-                        </form>
-                    </div>
+                    <input type="hidden" value={{task.id}} name="id">
+                </form>
+                <!-- Currently it is possible that there is no due date -->
+                <div class="info-container">   
+                    <p class="underline ">Categorie: {{task.categorie}}</p>
+                    <p class="underline " style="text-align: left;">Due: {{task.due}}</p>
                 </div>
-           
+                <div class="container-horizontal align-content-right">
+                    
+                    <form method="GET" action="/tasks/edit">
+                        <input type="hidden" value={{task.id}} name="id">
+                        <button class="btn-text margin-lr underline" type="submit">Edit</button>
+                    </form>
+                    <form method="POST" action="/tasks">
+                        <input type="hidden" value={{task.id}} name="id">
+                        <button class="btn-text margin-lr check" type="submit">✓</button>
+                    </form>
+                </div>
+            </div>
         {% endfor %}
     </div>
     

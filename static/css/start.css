@@ -276,8 +276,7 @@ a {
   }
 }
 
-form .entry {
-  margin: 20px 0px;
+.entry {
   cursor: pointer;
 }
 button {

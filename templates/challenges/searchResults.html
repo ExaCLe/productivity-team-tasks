@@ -8,22 +8,23 @@
 {% block main %}
 <div class="container">
     {%for result in results %}
-    <form method="GET" action="/profile" id="challenge_request{{result.username}}" style="width: 100%;">
-        <input type="hidden" name="username" value="{{result.username}}" > 
-        <div class="entry2 entry" onClick="document.getElementById('challenge_request{{result.username}}').submit();">
+    <div class="entry2 entry" onClick="document.getElementById('challenge_request{{result.username}}').submit();">
+        <form method="GET" action="/profile" id="challenge_request{{result.username}}" style="width: 100%;">
             <div class="align-content-left">
                 <p class="underline">{{result.username}}</h2>
             </div>
-            <div class="align-content-right">
-                <form action="/challenges/search/results" method="POST">
-                    <div class="textfield">
-                        <input type="hidden" name="username" value="{{result.username}}" >
-                    </div>
-                    <button class="btn-text underline" type="submit" >Send Request</button>
-                </form>
-            </div>
+            <input type="hidden" name="username" value="{{result.username}}" > 
+        </form>
+
+        <div class="align-content-right">
+            <form action="/challenges/search/results" method="POST">
+                <div class="textfield">
+                    <input type="hidden" name="username" value="{{result.username}}" >
+                </div>
+                <button class="btn-text underline" type="submit" >Send Request</button>
+            </form>
         </div>
-    </form>
+    </div>
     {%endfor%}
 </div>
 {% endblock %}
