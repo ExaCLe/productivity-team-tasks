@@ -122,11 +122,14 @@
     {%if incoming_challenge_requests %}
     <div class="left-align"><h1>Challenge Requests:</h1></div>
     {% for name in incoming_challenge_requests %}
-    <form method="GET" action="/profile" id="challenge_request{{name}}" style="width: 100%;">
         <div class="entry entry2" onClick="document.getElementById('challenge_request{{name}}').submit();">
-            <div class="align-content-left">
-                <p class="underline">{{name}}</p>
-            </div>  
+            <form method="GET" action="/profile" id="challenge_request{{name}}" style="width: 100%;">
+                <div class="align-content-left">
+                    <p class="underline">{{name}}</p>
+                </div>  
+                <input type="hidden" name="username" value="{{name}}" > 
+            </form>
+            
             <div class="container-horizontal align-content-right">
                 <form action="/challenges/accept" method="POST">
                     <input type="hidden" name="username" value="{{name}}" > 
@@ -138,7 +141,6 @@
                 </form>
             </div>
         </div>
-    </form>
     {% endfor %}
     <a class="btn-text" href="/challenges"><p class="underline primary-color">View All Challenges</p></a>
     {% endif %}
