@@ -265,6 +265,10 @@ def editTask():
         id = request.form.get("id")
         user = session.get("user_id")
         due = request.form.get("due")
+        categorie = request.form.get("categorie")
+        if categorie not in ["work", "daily", "health", "education"]:
+            return render_template("tasks/add.html",
+                                   message="Bitte gültige Kategorie eingeben.")
         # Make sure the task belongs to the user
         if not name or not id:
             return render_template("/tasks/edit",
@@ -272,8 +276,9 @@ def editTask():
         result = db.execute("SELECT * FROM tasks WHERE id=? AND user_id=?", id,
                             user)
         if result is not None:
-            db.execute("UPDATE tasks SET due=?, name=? WHERE id=?", due, name,
-                       id)
+            db.execute(
+                "UPDATE tasks SET due=?, name=?, categorie=? WHERE id=?", due,
+                name, categorie, id)
         return redirect("/tasks")
 
 
