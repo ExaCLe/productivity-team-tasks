@@ -19,7 +19,7 @@
                     <div class="bar"></div>
                     <div class="bar"></div>
                     <div class="bar"></div>
-                  </a>
+                </a>
                 </div>
                 
                 <div id="container-header">
@@ -30,7 +30,6 @@
                     <a class="li" href="/profile"><p>Profile</p></a>
                     <a class="li" href="/scoreboard/monthly"><p>Scoreboard</p></a>
                 </div>
-                   
                 
                 <div class="line"></div>
             </nav>
@@ -39,7 +38,6 @@
             {% block main %}{% endblock %}
         </main>
         
-       
 
     </body>
     <footer>
@@ -49,12 +47,12 @@
 
     <script>
         function myFunction() {
-          var x = document.getElementById("myTopnav");
-          if (x.className === "topnav") {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "topnav") {
             x.className += " responsive";
-          } else {
+            } else {
             x.className = "topnav";
-          }
+            }
         }
     </script>
 </html>

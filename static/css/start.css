@@ -280,6 +280,9 @@ form .entry {
   margin: 20px 0px;
   cursor: pointer;
 }
+button {
+  cursor: pointer;
+}
 
 form .entry * {
   cursor: pointer;
