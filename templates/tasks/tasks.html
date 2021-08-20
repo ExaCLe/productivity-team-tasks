@@ -26,11 +26,6 @@
                     <p class="underline " style="text-align: left;">Due: {{task.due}}</p>
                 </div>
                 <div class="container-horizontal align-content-right">
-                    
-                    <form method="GET" action="/tasks/edit">
-                        <input type="hidden" value={{task.id}} name="id">
-                        <button class="btn-text margin-lr underline" type="submit">Edit</button>
-                    </form>
                     <form method="POST" action="/tasks">
                         <input type="hidden" value={{task.id}} name="id">
                         <button class="btn-text margin-lr check" type="submit">✓</button>
