@@ -9,18 +9,28 @@
 <div class="grid3 margin" style="width: 80%">
     <div class="background padding">
         <p class="big-font">{{first_user}}</p>
-        <p class="btn-font">{{first_score}}</p>
+        {% if first_profile_pic %}
+        <img class="profile-pic" src="../../static/avatars/{{first_profile_pic}}" alt="avatar" />
+        {% else %}
+        <img class="profile-pic" src="../../static/images/416-4161690_empty-profile-picture-blank-avatar-image-circle.png" alt="picture">
+        {% endif %}
     </div>
     
-    <div style="justify-content: center;" class="flex">
+    <div style="justify-content: center;" class="flex container-horizontal">
+        <p class="big-font font-marker">{{first_score}}</p>
         <p class="font-marker margin-lr big-font"> vs. </p> 
+        <p class="big-font font-marker">{{second_score}}</p>
     </div>
     
     <div class="background padding">
         <p class="big-font">{{second_user}}</p>
-        <p class="btn-font">{{second_score}}</p>
+        {% if second_profile_pic %}
+        <img class="profile-pic" src="../../static/avatars/{{second_profile_pic}}" alt="avatar" />
+        {% else %}
+        <img class="profile-pic" src="../../static/images/416-4161690_empty-profile-picture-blank-avatar-image-circle.png" alt="picture">
+        {% endif %}
     </div>
     
 </div>
-    <p class="margin">Expires: {{date}}</h5>
+    <p class="margin big-font">Expires: {{date}}</h5>
 {% endblock %}

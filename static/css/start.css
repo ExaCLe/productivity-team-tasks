@@ -419,6 +419,7 @@ main {
 
 .big-font {
   font-size: 1.8em;
+  color: var(--clr-header-font);
 }
 
 .extra-big-font {
@@ -527,7 +528,10 @@ form label {
 
 .profile-pic {
   padding: 1em;
-  height: 12em;
+  height: 200px;
+  width: 200px;
+  border-radius: 100px;
+  object-fit: cover;
 }
 
 #q-graph {

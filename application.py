@@ -8,7 +8,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
 import os
 
-from helpers import login_required, createRequest, getChallenges, return_error, respondRequest, getTasks, getUsername, getRequests
+from helpers import login_required, createRequest, getChallenges, return_error, respondRequest, getTasks, getUsername, getRequests, getProfilePic
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 UPLOAD_FOLDER = os.path.join(basedir, "static/avatars")
@@ -719,7 +719,9 @@ def challengesDetails():
             "You either don't have access to this challenge or the challenge does not exist."
         )
     first_user = getUsername(data[0]["challenger_id"])
+    first_profile_pic = getProfilePic(data[0]["challenger_id"])
     second_user = getUsername(data[0]["challenged_id"])
+    second_profile_pic = getProfilePic(data[0]["challenged_id"])
     if first_user is None or second_user is None:
         return return_error("One user was not found. Please try again.")
     return render_template("challenges/details.html",
@@ -727,7 +729,9 @@ def challengesDetails():
                            second_user=second_user,
                            date=data[0]["expire_date"],
                            first_score=data[0]["challenger_score"],
-                           second_score=data[0]["challenged_score"])
+                           second_score=data[0]["challenged_score"],
+                           first_profile_pic=first_profile_pic,
+                           second_profile_pic=second_profile_pic)
 
 
 # Routes/Challenges/History

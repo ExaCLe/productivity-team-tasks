@@ -7,6 +7,8 @@ from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
 
+from werkzeug.utils import secure_filename
+
 # Configure CS50 Library to use SQLite database
 db = SQL("sqlite:///tasks.db")
 
@@ -22,6 +24,21 @@ def getUsername(id):
     except:
         username = None
     return username
+
+
+def getProfilePic(id):
+    try:
+        data = db.execute(
+            "SELECT profile_pic, username FROM users WHERE id = ?", id)[0]
+        pic = data["profile_pic"]
+        username = data["username"]
+    except:
+        pic = False
+    if pic:
+        pic = secure_filename(username + ".jpg")
+    else:
+        pic = None
+    return pic
 
 
 def getTasks():
