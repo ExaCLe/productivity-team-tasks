@@ -214,8 +214,8 @@ def tasks():
         score = task["score"]
         statement = "score_" + categorie
         db.execute(
-            "UPDATE scores SET score = score + ?, ? = ? + ? WHERE user_id = ? ",
-            score, statement, statement, score, session.get("user_id"))
+            f"UPDATE scores SET score = score + ?,  {statement} = {statement} + ? WHERE user_id = ? ",
+            score, score, session.get("user_id"))
         return redirect("/tasks")
 
 
