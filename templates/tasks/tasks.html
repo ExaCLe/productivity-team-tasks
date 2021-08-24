@@ -22,8 +22,8 @@
                 </form>
                 <!-- Currently it is possible that there is no due date -->
                 <div class="info-container">   
-                    <p class="underline ">Categorie: {{task.categorie}}</p>
-                    <p class="underline " style="text-align: left;">Due: {{task.due}}</p>
+                    <p class="underline ">{{task.categorie}}</p>
+                    <p class="underline " style="text-align: left;">{{task.due}}</p>
                 </div>
                 <div class="container-horizontal align-content-right">
                     <form method="POST" action="/tasks">

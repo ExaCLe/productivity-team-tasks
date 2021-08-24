@@ -10,7 +10,7 @@
     {%for id, first_score, second_score, first_user, second_user, date in challenges%}
     <div class="entry3 entry" onClick="document.getElementById('{{first_user}}{{second_user}}{{date}}').submit();">
         <form action="/challenges/details" method="GET" id="{{first_user}}{{second_user}}{{date}}" style="width: 100%">
-            <div class="container-horizontal container-horizontal-mobile mobile-center">
+            <div class="container-horizontal mobile-center">
                 <p class="underline">{{first_user}}</p>
                 <p class="font-marker margin-lr"> vs. </p>
                 <p class="underline">{{second_user}}</p>

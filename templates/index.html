@@ -17,8 +17,8 @@
                 <div>   
                     <form method="GET" action="/tasks/edit" style="width: 100%" id="{{task.id}}" class="info-container">
                         <input type="hidden" value={{task.id}} name="id">
-                        <button class="underline btn-text" type="submit">Categorie: {{task.categorie}}</p>
-                        <button class="underline btn-text" style="text-align: left;" type="submit">Due: {{task.due}}</p>
+                        <button class="underline btn-text" type="submit">{{task.categorie}}</p>
+                        <button class="underline btn-text" style="text-align: left;" type="submit">{{task.due}}</p>
                     </form> 
                 </div>
             
@@ -54,10 +54,10 @@
             <div class="container-horizontal align-content-right">
                 <form method="GET" action="/profile">
                     <input type="hidden" name="username" value="{{username}}">
-                    <button type="submit"  class="btn-text margin-lr underline"><p class="underline">View his profile</p></button>
+                    <button type="submit"  class="btn-text margin-lr underline"><p class="underline">Profile</p></button>
                 </form>
                     <input type="hidden" name="username_friend" value="{{username}}" >
-                    <button type="submit"  class="btn-text margin-lr underline">View his tasks</button>
+                    <button type="submit"  class="btn-text margin-lr underline">Tasks</button>
                 
             </div>
         </div>
