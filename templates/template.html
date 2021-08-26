@@ -10,7 +10,7 @@
         <title>{% block title %}{% endblock %}</title>
     </head>
 
-    <body>
+    <body class="spacer">
         <header class="header">
             <nav id="myTopnav" class="topnav">
                 <div class="mobile-nav">
@@ -36,13 +36,11 @@
         <main class="container-main">
             {% block main %}{% endblock %}
         </main>
-        
-
+        <footer>
+            <div class="line"></div>
+            <a class="btn-text" href="/logout"><p class="underline primary-color">Logout</p></a> 
+        </footer>
     </body>
-    <div class="line"></div>
-    <footer>
-        <a class="btn-text" href="/logout"><p class="underline primary-color">Logout</p></a> 
-    </footer>
 
     <script>
         function myFunction() {
