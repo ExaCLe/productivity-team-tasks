@@ -508,7 +508,7 @@ form select {
   padding-bottom: 10px;
   width: 100%;
   border-radius: 10px;
-  background-color: var(--clr-background);
+  background-color: transparent;
   border-top: 5px solid var(--clr-btn-primary);
   border-left: 5px solid var(--clr-btn-primary);
   border-color: var(--clr-btn-primary);
