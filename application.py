@@ -236,15 +236,19 @@ def addTask():
         if categorie not in ["work", "daily", "health", "education"]:
             return render_template("tasks/add.html",
                                    message="Bitte gültige Kategorie eingeben.")
+        priority = request.form.get("priority")
+        if priority not in ["1", "2", "3", "4"]:
+            return render_template("tasks/add.html",
+                                   message="Bitte gültige Kategorie eingeben.")
         date = request.form.get("due")
         if date is not None:
             db.execute(
-                "INSERT INTO tasks (name, user_id, due, fullfilled, private, categorie) VALUES (?, ?, ?, 0, 0, ?)",
-                name, session.get("user_id"), date, categorie)
+                "INSERT INTO tasks (name, user_id, due, fullfilled, private, categorie, priority) VALUES (?, ?, ?, 0, 0, ?, ?)",
+                name, session.get("user_id"), date, categorie, priority)
         else:
             db.execute(
-                "INSERT INTO tasks (description, user_id, fullfilled, private, categorie) VALUES (?, ?, 0, 0, ?)",
-                name, session.get("user_id"), categorie)
+                "INSERT INTO tasks (description, user_id, fullfilled, private, categorie, priority) VALUES (?, ?, 0, 0, ?, ?)",
+                name, session.get("user_id"), categorie, priority)
         return redirect("/tasks")
 
 
@@ -267,8 +271,12 @@ def editTask():
         due = request.form.get("due")
         categorie = request.form.get("categorie")
         if categorie not in ["work", "daily", "health", "education"]:
-            return render_template("tasks/add.html",
+            return render_template("tasks/edit.html",
                                    message="Bitte gültige Kategorie eingeben.")
+        priority = request.form.get("priority")
+        if priority not in ["1", "2", "3", "4"]:
+            return render_template("tasks/edit.html",
+                                   message="Bitte gültige Priorität eingeben.")
         # Make sure the task belongs to the user
         if not name or not id:
             return render_template("/tasks/edit",
@@ -277,8 +285,8 @@ def editTask():
                             user)
         if result is not None:
             db.execute(
-                "UPDATE tasks SET due=?, name=?, categorie=? WHERE id=?", due,
-                name, categorie, id)
+                "UPDATE tasks SET due=?, name=?, categorie=?, priority=? WHERE id=?",
+                due, name, categorie, priority, id)
         return redirect("/tasks")
 
 

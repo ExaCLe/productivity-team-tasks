@@ -180,6 +180,10 @@ header nav p:hover:after {
   margin-top: 20px;
 }
 
+main > p {
+  color: var(--clr-header-font);
+}
+
 div.stats-work {
   background-color: lightseagreen;
   border-top-left-radius: 10px;
